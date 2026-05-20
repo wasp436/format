@@ -976,11 +976,13 @@
         const origCbs = formEl.querySelectorAll('input[type="checkbox"]');
         const cloneCbs = clone.querySelectorAll('input[type="checkbox"]');
         cloneCbs.forEach((cb, i) => {
+          const checked = origCbs[i].checked;
           const span = document.createElement("span");
-          span.textContent = origCbs[i].checked ? "☑" : "☐";
+          span.textContent = checked ? "☑" : "☐";
           span.style.fontSize = "20px";
           span.style.lineHeight = "1";
           span.style.flexShrink = "0";
+          if (checked) span.style.color = "#d32f2f";
           cb.replaceWith(span);
         });
 
