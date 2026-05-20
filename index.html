@@ -1,0 +1,1162 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>回報項目表單</title>
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Permissions-Policy"
+      content="geolocation=(), microphone=(), camera=()"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+      integrity="sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          "微軟正黑體", "Microsoft JhengHei", "蘋方-繁", "PingFang TC",
+          sans-serif;
+        background: #f0f0f0;
+        min-height: 100vh;
+      }
+
+      /* 分頁導覽 */
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 16px 16px 0;
+        background: #2c3e50;
+      }
+
+      .tab-btn {
+        padding: 10px 14px;
+        border: none;
+        border-radius: 6px 6px 0 0;
+        background: #4a6278;
+        color: #ccc;
+        cursor: pointer;
+        font-size: 13px;
+        font-family: inherit;
+        transition:
+          background 0.2s,
+          color 0.2s;
+        white-space: nowrap;
+      }
+
+      .tab-btn:hover {
+        background: #607d8b;
+        color: #fff;
+      }
+      .tab-btn.active {
+        background: #fff;
+        color: #2c3e50;
+        font-weight: bold;
+      }
+
+      /* 主內容區 */
+      .content {
+        padding: 24px 16px;
+        max-width: 860px;
+        margin: 0 auto;
+      }
+
+      .form-panel {
+        display: none;
+      }
+      .form-panel.active {
+        display: block;
+      }
+
+      /* 表單卡片 */
+      .form-card {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 32px 40px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      /* 標題列 */
+      .form-header {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+
+      .form-title {
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        display: inline;
+      }
+
+      .view-img-link {
+        display: inline-block;
+        margin-left: 12px;
+        font-size: 12px;
+        color: #1976d2;
+        text-decoration: none;
+        border: 1px solid #1976d2;
+        border-radius: 4px;
+        padding: 2px 8px;
+        vertical-align: middle;
+      }
+
+      .view-img-link:hover {
+        background: #e3f2fd;
+      }
+
+      /* 項目列表 */
+      .form-list {
+        list-style: none;
+        counter-reset: item;
+      }
+
+      .form-list li {
+        counter-increment: item;
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 14px;
+        font-size: 15px;
+        line-height: 1.8;
+        padding-left: 28px;
+      }
+
+      .item-num {
+        min-width: 28px;
+        font-weight: normal;
+        color: #333;
+        flex-shrink: 0;
+      }
+
+      .form-list li::before {
+        content: counter(item) ".";
+        min-width: 28px;
+        flex-shrink: 0;
+        color: #333;
+        margin-left: -28px;
+      }
+
+      .item-label {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+
+      .red {
+        color: #d32f2f;
+      }
+      .underline {
+        text-decoration: underline;
+      }
+      .bold {
+        font-weight: bold;
+      }
+
+      /* 文字輸入框 */
+      input[type="text"] {
+        border: none;
+        border-bottom: 1.5px solid #555;
+        outline: none;
+        font-size: 15px;
+        font-family: inherit;
+        padding: 0 4px 1px;
+        min-width: 160px;
+        background: transparent;
+        color: #222;
+      }
+
+      input[type="text"].short {
+        min-width: 80px;
+      }
+      input[type="text"].medium {
+        min-width: 120px;
+      }
+      input[type="text"].long {
+        min-width: 220px;
+      }
+
+      input[type="text"]:focus {
+        border-bottom-color: #1976d2;
+      }
+
+      /* 勾選框 */
+      .cb-group {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin: 0 6px;
+      }
+
+      input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+        accent-color: #2c3e50;
+        flex-shrink: 0;
+      }
+
+      .cb-label {
+        white-space: nowrap;
+      }
+
+      /* 子說明 */
+      .sub-note {
+        font-size: 13px;
+        color: #666;
+        margin-left: 4px;
+      }
+
+      /* 匯出按鈕區 */
+      .export-bar {
+        margin-top: 28px;
+        text-align: center;
+      }
+
+      .export-btn {
+        padding: 12px 36px;
+        background: #2c3e50;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-family: inherit;
+        cursor: pointer;
+        letter-spacing: 1px;
+        transition: background 0.2s;
+      }
+
+      .export-btn:hover {
+        background: #1a252f;
+      }
+      .export-btn:active {
+        background: #0d161e;
+      }
+
+      /* 匯出時隱藏按鈕 */
+      .export-bar.hidden {
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        .form-card {
+          padding: 20px 16px;
+        }
+
+        input[type="text"],
+        input[type="text"].short,
+        input[type="text"].medium,
+        input[type="text"].long {
+          flex: 1;
+          min-width: 60px;
+        }
+      }
+      /* 日期選擇器觸發器 */
+      .date-picker-trigger {
+        flex: 1;
+        min-width: 60px;
+        min-height: 1.5em;
+        border-bottom: 1.5px solid #555;
+        font-size: 15px;
+        font-family: inherit;
+        padding: 0 4px 1px;
+        color: #222;
+        cursor: pointer;
+      }
+
+      /* 遮罩 */
+      .picker-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 9999;
+        align-items: flex-end;
+      }
+      .picker-overlay.open {
+        display: flex;
+      }
+
+      /* 底部彈出面板 */
+      .picker-modal {
+        width: 100%;
+        background: #fff;
+        border-radius: 12px 12px 0 0;
+        overflow: hidden;
+      }
+
+      /* 工具列 */
+      .picker-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+        border-bottom: 1px solid #eee;
+        font-size: 15px;
+      }
+      .picker-toolbar button {
+        background: none;
+        border: none;
+        font-size: 16px;
+        font-family: inherit;
+        cursor: pointer;
+        padding: 4px 8px;
+      }
+      .picker-cancel-btn {
+        color: #888;
+      }
+      .picker-confirm-btn {
+        color: #1976d2;
+        font-weight: bold;
+      }
+
+      /* 欄位容器 */
+      .picker-body {
+        display: flex;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* 中央高亮 */
+      .picker-highlight {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 40px;
+        background: rgba(0, 0, 0, 0.06);
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* 上下淡出 */
+      .picker-body::before,
+      .picker-body::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 80px;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .picker-body::before {
+        top: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.92),
+          transparent
+        );
+      }
+      .picker-body::after {
+        bottom: 0;
+        background: linear-gradient(
+          to top,
+          rgba(255, 255, 255, 0.92),
+          transparent
+        );
+      }
+
+      /* 滾動欄 */
+      .picker-col {
+        flex: 1;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+      }
+      .picker-col::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* 選項 */
+      .picker-item {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        scroll-snap-align: center;
+        color: #333;
+        user-select: none;
+      }
+      .picker-pad {
+        height: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 分頁按鈕 -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab(0)">
+        中正樓 拆終端箱
+      </button>
+      <button class="tab-btn" onclick="showTab(1)">全院小型送風機故障</button>
+      <button class="tab-btn" onclick="showTab(2)">全院保溫失效</button>
+      <button class="tab-btn" onclick="showTab(3)">全院變頻器故障</button>
+      <button class="tab-btn" onclick="showTab(4)">全院管路漏水故障</button>
+    </div>
+
+    <div class="content">
+      <!-- ===== 表單 1：中正樓 拆終端箱回報項目 ===== -->
+      <div class="form-panel active" id="panel-0">
+        <div class="form-card" id="form-0">
+          <div class="form-header">
+            <span class="form-title">中正樓 拆終端箱回報項目</span>
+            <a
+              class="view-img-link"
+              href="1755224345582.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              >查看原圖</a
+            >
+          </div>
+          <ol class="form-list">
+            <li>
+              <span class="item-label">發生日期：</span>
+              <div
+                class="date-picker-trigger"
+                onclick="openDatePicker(this)"
+              ></div>
+            </li>
+            <li>
+              <span class="item-label">發生地點：</span>
+              <input type="text" class="long" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">位於</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f1-room" />
+                <label class="cb-label" for="f1-room">房內</label>
+              </span>
+              <span class="item-label">或</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f1-corridor" />
+                <label class="cb-label" for="f1-corridor">走道</label>
+              </span>
+            </li>
+            <li>
+              <span class="item-label">通知單位打請修單</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f1-repair" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label"
+                ><span class="underline">上傳群組</span> 清晰照片</span
+              >
+              <span class="sub-note">（請上傳至群組）</span>
+            </li>
+            <li>
+              <span class="item-label">出風口數量：</span>
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label"
+                >使用<span class="underline">合梯幾尺</span>：</span
+              >
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">單位人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">單位電話：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">勘查人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+          </ol>
+        </div>
+        <div class="export-bar">
+          <button
+            class="export-btn"
+            onclick="exportImg('form-0', '中正樓拆終端箱回報')"
+          >
+            匯出成圖片
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== 表單 2：全院小型送風機故障回報項目 ===== -->
+      <div class="form-panel" id="panel-1">
+        <div class="form-card" id="form-1">
+          <div class="form-header">
+            <span class="form-title">全院小型送風機故障回報項目</span>
+            <a
+              class="view-img-link"
+              href="1767170568771 1.png"
+              target="_blank"
+              rel="noopener noreferrer"
+              >查看原圖</a
+            >
+          </div>
+          <ol class="form-list">
+            <li>
+              <span class="item-label">發生日期：</span>
+              <div
+                class="date-picker-trigger"
+                onclick="openDatePicker(this)"
+              ></div>
+            </li>
+            <li>
+              <span class="item-label">發生地點：</span>
+              <input type="text" class="long" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">F/C 位於</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-room" />
+                <label class="cb-label" for="f2-room">病房內</label>
+              </span>
+              <span class="item-label">或</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-corridor" />
+                <label class="cb-label" for="f2-corridor">走道</label>
+              </span>
+            </li>
+            <li>
+              <span class="item-label">F/C 型號：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">F/C 電壓：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">通知單位打請修單</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-repair" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label">面對 F/C 出風箱：</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-right" />
+                <label class="cb-label" for="f2-right">右出</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-left" />
+                <label class="cb-label" for="f2-left">左出</label>
+              </span>
+            </li>
+            <li>
+              <span class="item-label">F/C 管排數量：</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-single" />
+                <label class="cb-label" for="f2-single">單</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-double" />
+                <label class="cb-label" for="f2-double">雙</label>
+              </span>
+            </li>
+            <li>
+              <span class="item-label red">控制閥故障：</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-v2" />
+                <label class="cb-label red" for="f2-v2">二通閥</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-v3" />
+                <label class="cb-label red" for="f2-v3">三通閥</label>
+              </span>
+            </li>
+            <li>
+              <span class="item-label red">控制閥電壓：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">出風口數量：</span>
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">回風口數量：</span>
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label"
+                >使用<span class="underline">合梯幾尺</span>：</span
+              >
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">來電人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">聯絡電話：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">勘查人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+          </ol>
+        </div>
+        <div class="export-bar">
+          <button
+            class="export-btn"
+            onclick="exportImg('form-1', '全院小型送風機故障回報')"
+          >
+            匯出成圖片
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== 表單 3：全院保溫失效回報項目 ===== -->
+      <div class="form-panel" id="panel-2">
+        <div class="form-card" id="form-2">
+          <div class="form-header">
+            <span class="form-title">全院保溫失效回報項目</span>
+            <a
+              class="view-img-link"
+              href="1768352448005.png"
+              target="_blank"
+              rel="noopener noreferrer"
+              >查看原圖</a
+            >
+          </div>
+          <ol class="form-list">
+            <li>
+              <span class="item-label">發生日期：</span>
+              <div
+                class="date-picker-trigger"
+                onclick="openDatePicker(this)"
+              ></div>
+            </li>
+            <li>
+              <span class="item-label">發生地點：</span>
+              <input type="text" class="long" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label red">已切開保溫查看</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f3-cut" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label red"
+                >漏水上傳<span class="underline">照片</span>至群組</span
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f3-photo" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label red"
+                >管路確認<span class="underline">無砂孔</span>漏水</span
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f3-noleak" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label red">確認非其他管路漏水</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f3-notother" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label red">確認非結構漏水</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f3-nostructure" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label red">確認無外氣侵入</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f3-noair" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label">型式：</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f3-icepipe" />
+                <label class="cb-label" for="f3-icepipe">冰水管</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f3-drain" />
+                <label class="cb-label" for="f3-drain">排水管</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f3-duct" />
+                <label class="cb-label" for="f3-duct">風管</label>
+              </span>
+            </li>
+            <li>
+              <span class="item-label">水管管徑(吋)：</span>
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label"
+                ><span class="underline">需合梯幾尺</span>：</span
+              >
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">可施工時間：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">單位來電人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">單位聯絡電話：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">我方勘查人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+          </ol>
+        </div>
+        <div class="export-bar">
+          <button
+            class="export-btn"
+            onclick="exportImg('form-2', '全院保溫失效回報')"
+          >
+            匯出成圖片
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== 表單 4：全院變頻器故障回報項目 ===== -->
+      <div class="form-panel" id="panel-3">
+        <div class="form-card" id="form-3">
+          <div class="form-header">
+            <span class="form-title">全院變頻器故障回報項目</span>
+            <a
+              class="view-img-link"
+              href="1776819933487.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              >查看原圖</a
+            >
+          </div>
+          <ol class="form-list">
+            <li>
+              <span class="item-label red">故障訊息：</span>
+              <input type="text" class="long" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">設備地點：</span>
+              <input type="text" class="long" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">設備編號：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">變頻器廠牌：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">變頻器型號：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">設備馬力：</span>
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">變頻器電壓：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">變頻器長度：</span>
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">變頻器寬度：</span>
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">變頻器高度：</span>
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">勘查人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">單位承辦：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">單位分機：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label"
+                ><span class="underline">拍照上傳群組</span></span
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f4-upload" />
+              </span>
+            </li>
+          </ol>
+        </div>
+        <div class="export-bar">
+          <button
+            class="export-btn"
+            onclick="exportImg('form-3', '全院變頻器故障回報')"
+          >
+            匯出成圖片
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== 表單 5：全院管路漏水故障回報項目 ===== -->
+      <div class="form-panel" id="panel-4">
+        <div class="form-card" id="form-4">
+          <div class="form-header">
+            <span class="form-title red">全院管路漏水故障回報項目</span>
+            <a
+              class="view-img-link"
+              href="1778631115360.png"
+              target="_blank"
+              rel="noopener noreferrer"
+              >查看原圖</a
+            >
+          </div>
+          <ol class="form-list">
+            <li>
+              <span class="item-label">設備地點：</span>
+              <input type="text" class="long" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">設備編號：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li style="flex-wrap: wrap; gap: 4px">
+              <span class="item-label">確認管路性質：</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f5-icein" />
+                <label class="cb-label" for="f5-icein">冰水進水</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f5-iceout" />
+                <label class="cb-label" for="f5-iceout">冰水回水</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f5-icemain" />
+                <label class="cb-label" for="f5-icemain">冰水幹管</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f5-cool" />
+                <label class="cb-label" for="f5-cool">冷卻水管</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f5-drain" />
+                <label class="cb-label" for="f5-drain">排水管</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f5-steam" />
+                <label class="cb-label" for="f5-steam">蒸氣管</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f5-other" />
+                <label class="cb-label" for="f5-other">其他：</label>
+              </span>
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">確認進出水工作閥位置及功能正常</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f5-valve" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label red underline">管徑幾吋：</span>
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label red bold underline"
+                >是否可用管夾先處理？</span
+              >
+              <input type="text" class="medium" placeholder="是 / 否" />
+            </li>
+            <li>
+              <span class="item-label">上傳榮總群組 清晰照片或短片</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f5-photo" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label">勘查人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">單位承辦：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">單位電話：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+          </ol>
+        </div>
+        <div class="export-bar">
+          <button
+            class="export-btn"
+            onclick="exportImg('form-4', '全院管路漏水故障回報')"
+          >
+            匯出成圖片
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- /content -->
+
+    <script>
+      function showTab(index) {
+        document.querySelectorAll(".form-panel").forEach((p, i) => {
+          p.classList.toggle("active", i === index);
+        });
+        document.querySelectorAll(".tab-btn").forEach((b, i) => {
+          b.classList.toggle("active", i === index);
+        });
+      }
+
+      function exportImg(formId, filename) {
+        const formEl = document.getElementById(formId);
+        const exportBar = formEl
+          .closest(".form-panel")
+          .querySelector(".export-bar");
+
+        exportBar.classList.add("hidden");
+
+        const clone = formEl.cloneNode(true);
+        clone.style.position = "fixed";
+        clone.style.top = "-9999px";
+        clone.style.left = "0";
+        clone.style.width = "400px";
+        clone.style.padding = "20px 16px";
+        document.body.appendChild(clone);
+
+        clone.querySelectorAll(".view-img-link").forEach((el) => el.remove());
+
+        const origInputs = formEl.querySelectorAll('input[type="text"]');
+        const cloneInputs = clone.querySelectorAll('input[type="text"]');
+        cloneInputs.forEach((input, i) => {
+          const val = origInputs[i].value;
+          const span = document.createElement("span");
+          span.textContent = val || " ";
+          span.style.flex = "1";
+          span.style.minWidth = "60px";
+          span.style.borderBottom = "1.5px solid #555";
+          span.style.fontSize = "15px";
+          span.style.fontFamily = "inherit";
+          span.style.padding = "0 4px 1px";
+          span.style.color = "#d32f2f";
+          input.replaceWith(span);
+        });
+
+        clone.querySelectorAll(".date-picker-trigger").forEach((el) => {
+          el.style.color = "#d32f2f";
+        });
+
+        const origCbs = formEl.querySelectorAll('input[type="checkbox"]');
+        const cloneCbs = clone.querySelectorAll('input[type="checkbox"]');
+        cloneCbs.forEach((cb, i) => {
+          const span = document.createElement("span");
+          span.textContent = origCbs[i].checked ? "☑" : "☐";
+          span.style.fontSize = "20px";
+          span.style.lineHeight = "1";
+          span.style.flexShrink = "0";
+          cb.replaceWith(span);
+        });
+
+        html2canvas(clone, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: "#ffffff",
+          logging: false,
+        })
+          .then((canvas) => {
+            document.body.removeChild(clone);
+            exportBar.classList.remove("hidden");
+            const link = document.createElement("a");
+            link.download = filename + ".png";
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+          })
+          .catch(() => {
+            document.body.removeChild(clone);
+            exportBar.classList.remove("hidden");
+            alert("匯出失敗，請稍後再試。");
+          });
+      }
+      // ---- 日期選擇器 ----
+      const ITEM_H = 40;
+      let pickerTarget = null;
+      let yearArr = [],
+        monthArr = [],
+        dayArr = [];
+
+      function openDatePicker(el) {
+        pickerTarget = el;
+        const val = el.dataset.date;
+        const today = new Date();
+        let y = today.getFullYear(),
+          m = today.getMonth() + 1,
+          d = today.getDate();
+        if (val) {
+          const p = val.split("-").map(Number);
+          if (p.length === 3) {
+            y = p[0];
+            m = p[1];
+            d = p[2];
+          }
+        }
+        document.getElementById("date-picker-overlay").classList.add("open");
+        setTimeout(() => initPicker(y, m, d), 10);
+      }
+
+      function closeDatePicker(doConfirm) {
+        if (doConfirm && pickerTarget) {
+          const y = yearArr[getIdx("pcol-year")];
+          const m = monthArr[getIdx("pcol-month")];
+          const d = dayArr[getIdx("pcol-day")];
+          if (y != null && m != null && d != null) {
+            pickerTarget.dataset.date = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+            pickerTarget.textContent = `${y}年${m}月${d}日`;
+          }
+        }
+        document.getElementById("date-picker-overlay").classList.remove("open");
+        pickerTarget = null;
+      }
+
+      function initPicker(y, m, d) {
+        const curY = new Date().getFullYear();
+        yearArr = [];
+        for (let yr = curY - 2; yr <= curY + 1; yr++) yearArr.push(yr);
+        monthArr = Array.from({ length: 12 }, (_, i) => i + 1);
+        const dMax = new Date(y, m, 0).getDate();
+        dayArr = Array.from({ length: dMax }, (_, i) => i + 1);
+
+        fillCol(
+          "pcol-year",
+          yearArr.map((v) => v + "年"),
+          yearArr.indexOf(y),
+        );
+        fillCol(
+          "pcol-month",
+          monthArr.map((v) => v + "月"),
+          monthArr.indexOf(m),
+        );
+        fillCol(
+          "pcol-day",
+          dayArr.map((v) => v + "日"),
+          dayArr.indexOf(d),
+        );
+
+        const onYM = debounce(rebuildDays, 120);
+        document.getElementById("pcol-year").onscroll = onYM;
+        document.getElementById("pcol-month").onscroll = onYM;
+      }
+
+      function rebuildDays() {
+        const y = yearArr[getIdx("pcol-year")] || new Date().getFullYear();
+        const m = monthArr[getIdx("pcol-month")] || new Date().getMonth() + 1;
+        const oldD = dayArr[getIdx("pcol-day")] || 1;
+        const dMax = new Date(y, m, 0).getDate();
+        dayArr = Array.from({ length: dMax }, (_, i) => i + 1);
+        fillCol(
+          "pcol-day",
+          dayArr.map((v) => v + "日"),
+          Math.min(oldD, dMax) - 1,
+        );
+      }
+
+      function fillCol(id, labels, selIdx) {
+        const col = document.getElementById(id);
+        col.onscroll = null;
+        col.innerHTML = "";
+        for (let i = 0; i < 2; i++) col.appendChild(makePad());
+        labels.forEach((txt) => {
+          const div = document.createElement("div");
+          div.className = "picker-item";
+          div.textContent = txt;
+          col.appendChild(div);
+        });
+        for (let i = 0; i < 2; i++) col.appendChild(makePad());
+        col.scrollTop = Math.max(0, selIdx) * ITEM_H;
+      }
+
+      function makePad() {
+        const d = document.createElement("div");
+        d.className = "picker-pad";
+        return d;
+      }
+
+      function getIdx(id) {
+        const col = document.getElementById(id);
+        return Math.round(col.scrollTop / ITEM_H);
+      }
+
+      function debounce(fn, ms) {
+        let t;
+        return function () {
+          clearTimeout(t);
+          t = setTimeout(fn, ms);
+        };
+      }
+
+      (function setTodayOnLoad() {
+        const today = new Date();
+        const y = today.getFullYear();
+        const m = today.getMonth() + 1;
+        const d = today.getDate();
+        const dateStr = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        const label = `${y}年${m}月${d}日`;
+        document.querySelectorAll(".date-picker-trigger").forEach((el) => {
+          el.dataset.date = dateStr;
+          el.textContent = label;
+        });
+      })();
+    </script>
+
+    <!-- 日期選擇器 overlay -->
+    <div
+      class="picker-overlay"
+      id="date-picker-overlay"
+      onclick="if (event.target === this) closeDatePicker(false);"
+    >
+      <div class="picker-modal">
+        <div class="picker-toolbar">
+          <button class="picker-cancel-btn" onclick="closeDatePicker(false)">
+            取消
+          </button>
+          <span>選擇日期</span>
+          <button class="picker-confirm-btn" onclick="closeDatePicker(true)">
+            確定
+          </button>
+        </div>
+        <div class="picker-body">
+          <div class="picker-highlight"></div>
+          <div class="picker-col" id="pcol-year"></div>
+          <div class="picker-col" id="pcol-month"></div>
+          <div class="picker-col" id="pcol-day"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
