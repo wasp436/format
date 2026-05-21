@@ -220,7 +220,25 @@
       /* 匯出按鈕區 */
       .export-bar {
         margin-top: 28px;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .copy-btn {
+        padding: 12px 24px;
+        background: #fff;
+        color: #2c3e50;
+        border: 2px solid #2c3e50;
+        border-radius: 6px;
+        font-size: 16px;
+        font-family: inherit;
+        cursor: pointer;
+        letter-spacing: 1px;
+        transition: background 0.2s;
+      }
+      .copy-btn:hover {
+        background: #f0f0f0;
       }
 
       .export-btn {
@@ -490,6 +508,12 @@
           >
             匯出成圖片
           </button>
+          <button
+            class="copy-btn"
+            onclick="copyText('form-0', '中正樓拆終端箱回報')"
+          >
+            複製文字
+          </button>
         </div>
       </div>
 
@@ -616,6 +640,12 @@
           >
             匯出成圖片
           </button>
+          <button
+            class="copy-btn"
+            onclick="copyText('form-1', '全院小型送風機故障回報')"
+          >
+            複製文字
+          </button>
         </div>
       </div>
 
@@ -734,6 +764,12 @@
           >
             匯出成圖片
           </button>
+          <button
+            class="copy-btn"
+            onclick="copyText('form-2', '全院保溫失效回報')"
+          >
+            複製文字
+          </button>
         </div>
       </div>
 
@@ -819,6 +855,12 @@
             onclick="exportImg('form-3', '全院變頻器故障回報')"
           >
             匯出成圖片
+          </button>
+          <button
+            class="copy-btn"
+            onclick="copyText('form-3', '全院變頻器故障回報')"
+          >
+            複製文字
           </button>
         </div>
       </div>
@@ -920,12 +962,67 @@
           >
             匯出成圖片
           </button>
+          <button
+            class="copy-btn"
+            onclick="copyText('form-4', '全院管路漏水故障回報')"
+          >
+            複製文字
+          </button>
         </div>
       </div>
     </div>
     <!-- /content -->
 
     <script>
+      function addCJKSpacing(str) {
+        return str
+          .replace(/([一-龥])([A-Za-z0-9])/g, "$1 $2")
+          .replace(/([A-Za-z0-9])([一-龥])/g, "$1 $2");
+      }
+
+      function copyText(formId, title) {
+        const btn = event.currentTarget;
+        const formEl = document.getElementById(formId);
+        const formTitle =
+          formEl.querySelector(".form-title")?.textContent?.trim() || title;
+        const lines = [formTitle, ""];
+
+        formEl.querySelectorAll(".form-list li").forEach((li, idx) => {
+          let line = idx + 1 + ". ";
+
+          li.childNodes.forEach((node) => {
+            if (node.nodeType !== Node.ELEMENT_NODE) return;
+            const el = node;
+            if (el.classList.contains("item-label")) {
+              line += el.textContent.trim();
+            } else if (el.classList.contains("sub-note")) {
+              line += el.textContent.trim();
+            } else if (el.classList.contains("cb-group")) {
+              const cb = el.querySelector('input[type="checkbox"]');
+              const lbl = el.querySelector("label")?.textContent?.trim() || "";
+              if (cb) line += (cb.checked ? "☑" : "☐") + lbl + " ";
+            } else if (el.classList.contains("date-picker-trigger")) {
+              line += el.textContent.trim();
+            } else if (el.tagName === "INPUT" && el.type === "text") {
+              line += el.value;
+            }
+          });
+
+          lines.push(addCJKSpacing(line.trimEnd()));
+        });
+
+        navigator.clipboard
+          .writeText(lines.join("\n"))
+          .then(() => {
+            const orig = btn.textContent.trim();
+            btn.textContent = "已複製！";
+            setTimeout(() => {
+              btn.textContent = orig;
+            }, 1500);
+          })
+          .catch(() => alert("複製失敗，請手動複製。"));
+      }
+
       function showTab(index) {
         document.querySelectorAll(".form-panel").forEach((p, i) => {
           p.classList.toggle("active", i === index);
@@ -958,14 +1055,19 @@
         cloneInputs.forEach((input, i) => {
           const val = origInputs[i].value;
           const span = document.createElement("span");
-          span.textContent = val || " ";
+          span.textContent = addCJKSpacing(val) || " ";
           span.style.flex = "1";
           span.style.minWidth = "60px";
           span.style.borderBottom = "1.5px solid #555";
           span.style.fontSize = "15px";
           span.style.fontFamily = "inherit";
           span.style.padding = "0 4px 1px";
-          span.style.color = "#d32f2f";
+          const labelText =
+            input.closest("li")?.querySelector(".item-label")?.textContent ||
+            "";
+          span.style.color = labelText.includes("勘查人員")
+            ? "#222"
+            : "#d32f2f";
           input.replaceWith(span);
         });
 
@@ -1134,6 +1236,19 @@
           el.textContent = label;
         });
       })();
+
+      document
+        .querySelectorAll(".form-panel:not(#panel-4)")
+        .forEach((panel) => {
+          panel.addEventListener("change", (e) => {
+            if (e.target.type !== "checkbox" || !e.target.checked) return;
+            const li = e.target.closest("li");
+            if (!li) return;
+            li.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+              if (cb !== e.target) cb.checked = false;
+            });
+          });
+        });
     </script>
 
     <!-- 日期選擇器 overlay -->
