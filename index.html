@@ -421,7 +421,7 @@
       <button class="tab-btn active" onclick="showTab(0)">
         中正樓 拆終端箱
       </button>
-      <button class="tab-btn" onclick="showTab(1)">全院小型送風機故障</button>
+      <button class="tab-btn" onclick="showTab(1)">全院小型送風機需汰換</button>
       <button class="tab-btn" onclick="showTab(2)">全院保溫失效</button>
       <button class="tab-btn" onclick="showTab(3)">全院變頻器故障</button>
       <button class="tab-btn" onclick="showTab(4)">全院管路漏水故障</button>
@@ -517,14 +517,14 @@
         </div>
       </div>
 
-      <!-- ===== 表單 2：全院小型送風機故障回報項目 ===== -->
+      <!-- ===== 表單 2：全院小型送風機需汰換回報項目 ===== -->
       <div class="form-panel" id="panel-1">
         <div class="form-card" id="form-1">
           <div class="form-header">
-            <span class="form-title">全院小型送風機故障回報項目</span>
+            <span class="form-title">全院小型送風機需汰換回報項目</span>
             <a
               class="view-img-link"
-              href="1767170568771 1.png"
+              href="1779778354313.png"
               target="_blank"
               rel="noopener noreferrer"
               >查看原圖</a
@@ -543,16 +543,8 @@
               <input type="text" class="long" placeholder="" />
             </li>
             <li>
-              <span class="item-label">F/C 位於</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-room" />
-                <label class="cb-label" for="f2-room">病房內</label>
-              </span>
-              <span class="item-label">或</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-corridor" />
-                <label class="cb-label" for="f2-corridor">走道</label>
-              </span>
+              <span class="item-label">故障問題：</span>
+              <input type="text" class="long" placeholder="" />
             </li>
             <li>
               <span class="item-label">F/C 型號：</span>
@@ -563,10 +555,25 @@
               <input type="text" class="medium" placeholder="" />
             </li>
             <li>
+              <span class="item-label">F/C 箱體位於</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-room" />
+                <label class="cb-label" for="f2-room">病房</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-corridor" />
+                <label class="cb-label" for="f2-corridor">走道</label>
+              </span>
+            </li>
+            <li>
               <span class="item-label">通知單位打請修單</span>
               <span class="cb-group">
                 <input type="checkbox" id="f2-repair" />
               </span>
+            </li>
+            <li>
+              <span class="item-label">請修單編號：</span>
+              <input type="text" class="medium" placeholder="" />
             </li>
             <li>
               <span class="item-label">面對 F/C 出風箱：</span>
@@ -603,7 +610,14 @@
             </li>
             <li>
               <span class="item-label red">控制閥電壓：</span>
-              <input type="text" class="medium" placeholder="" />
+              <span class="cb-group">
+                <input type="checkbox" id="f2-v220" />
+                <label class="cb-label red" for="f2-v220">220V</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-v110" />
+                <label class="cb-label red" for="f2-v110">110V</label>
+              </span>
             </li>
             <li>
               <span class="item-label">出風口數量：</span>
@@ -618,6 +632,10 @@
                 >使用<span class="underline">合梯幾尺</span>：</span
               >
               <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">方便施工時間：</span>
+              <input type="text" class="medium" placeholder="" />
             </li>
             <li>
               <span class="item-label">來電人員：</span>
@@ -636,13 +654,13 @@
         <div class="export-bar">
           <button
             class="export-btn"
-            onclick="exportImg('form-1', '全院小型送風機故障回報')"
+            onclick="exportImg('form-1', '全院小型送風機需汰換回報')"
           >
             匯出成圖片
           </button>
           <button
             class="copy-btn"
-            onclick="copyText('form-1', '全院小型送風機故障回報')"
+            onclick="copyText('form-1', '全院小型送風機需汰換回報')"
           >
             複製文字
           </button>
@@ -656,7 +674,7 @@
             <span class="form-title">全院保溫失效回報項目</span>
             <a
               class="view-img-link"
-              href="1768352448005.png"
+              href="1779778627168.png"
               target="_blank"
               rel="noopener noreferrer"
               >查看原圖</a
@@ -675,7 +693,7 @@
               <input type="text" class="long" placeholder="" />
             </li>
             <li>
-              <span class="item-label red">已切開保溫查看</span>
+              <span class="item-label red">一定要切開保溫查看確認</span>
               <span class="cb-group">
                 <input type="checkbox" id="f3-cut" />
               </span>
