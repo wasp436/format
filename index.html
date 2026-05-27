@@ -240,6 +240,9 @@
       .copy-btn:hover {
         background: #f0f0f0;
       }
+      .copy-btn:active {
+        background: #d0d0d0;
+      }
 
       .export-btn {
         padding: 12px 36px;
@@ -466,7 +469,7 @@
               </span>
             </li>
             <li>
-              <span class="item-label">通知單位打請修單</span>
+              <label class="item-label" for="f1-repair">通知單位打請修單</label>
               <span class="cb-group">
                 <input type="checkbox" id="f1-repair" />
               </span>
@@ -566,7 +569,7 @@
               </span>
             </li>
             <li>
-              <span class="item-label">通知單位打請修單</span>
+              <label class="item-label" for="f2-repair">通知單位打請修單</label>
               <span class="cb-group">
                 <input type="checkbox" id="f2-repair" />
               </span>
@@ -704,41 +707,49 @@
               <input type="text" class="long" placeholder="" />
             </li>
             <li>
-              <span class="item-label red">一定要切開保溫查看確認</span>
+              <label class="item-label red" for="f3-cut"
+                >一定要切開保溫查看確認</label
+              >
               <span class="cb-group">
                 <input type="checkbox" id="f3-cut" />
               </span>
             </li>
             <li>
-              <span class="item-label red"
-                >漏水上傳<span class="underline">照片</span>至群組</span
+              <label class="item-label red" for="f3-photo"
+                >漏水上傳<span class="underline">照片</span>至群組</label
               >
               <span class="cb-group">
                 <input type="checkbox" id="f3-photo" />
               </span>
             </li>
             <li>
-              <span class="item-label red"
-                >管路確認<span class="underline">無砂孔</span>漏水</span
+              <label class="item-label red" for="f3-noleak"
+                >管路確認<span class="underline">無砂孔</span>漏水</label
               >
               <span class="cb-group">
                 <input type="checkbox" id="f3-noleak" />
               </span>
             </li>
             <li>
-              <span class="item-label red">確認非其他管路漏水</span>
+              <label class="item-label red" for="f3-notother"
+                >確認非其他管路漏水</label
+              >
               <span class="cb-group">
                 <input type="checkbox" id="f3-notother" />
               </span>
             </li>
             <li>
-              <span class="item-label red">確認非結構漏水</span>
+              <label class="item-label red" for="f3-nostructure"
+                >確認非結構漏水</label
+              >
               <span class="cb-group">
                 <input type="checkbox" id="f3-nostructure" />
               </span>
             </li>
             <li>
-              <span class="item-label red">確認無外氣侵入</span>
+              <label class="item-label red" for="f3-noair"
+                >確認無外氣侵入</label
+              >
               <span class="cb-group">
                 <input type="checkbox" id="f3-noair" />
               </span>
@@ -869,8 +880,8 @@
               <input type="text" class="medium" placeholder="" />
             </li>
             <li>
-              <span class="item-label"
-                ><span class="underline">拍照上傳群組</span></span
+              <label class="item-label" for="f4-upload"
+                ><span class="underline">拍照上傳群組</span></label
               >
               <span class="cb-group">
                 <input type="checkbox" id="f4-upload" />
@@ -949,7 +960,9 @@
               <input type="text" class="short" placeholder="" />
             </li>
             <li>
-              <span class="item-label">確認進出水工作閥位置及功能正常</span>
+              <label class="item-label" for="f5-valve"
+                >確認進出水工作閥位置及功能正常</label
+              >
               <span class="cb-group">
                 <input type="checkbox" id="f5-valve" />
               </span>
@@ -965,7 +978,9 @@
               <input type="text" class="medium" placeholder="是 / 否" />
             </li>
             <li>
-              <span class="item-label">上傳榮總群組 清晰照片或短片</span>
+              <label class="item-label" for="f5-photo"
+                >上傳榮總群組 清晰照片或短片</label
+              >
               <span class="cb-group">
                 <input type="checkbox" id="f5-photo" />
               </span>
@@ -1023,8 +1038,6 @@
             if (node.nodeType !== Node.ELEMENT_NODE) return;
             const el = node;
             if (el.classList.contains("item-label")) {
-              line += el.textContent.trim();
-            } else if (el.classList.contains("sub-note")) {
               line += el.textContent.trim();
             } else if (el.classList.contains("cb-group")) {
               const cb = el.querySelector('input[type="checkbox"]');
