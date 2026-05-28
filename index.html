@@ -386,6 +386,28 @@
       .picker-pad {
         height: 40px;
       }
+
+      #toast {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        padding: 10px 24px;
+        border-radius: 24px;
+        font-size: 15px;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.25s,
+          transform 0.25s;
+        white-space: nowrap;
+      }
+      #toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
     </style>
   </head>
   <body>
@@ -995,14 +1017,14 @@
 
         navigator.clipboard
           .writeText(lines.join("\n"))
-          .then(() => {
-            const orig = btn.textContent.trim();
-            btn.textContent = "已複製！";
-            setTimeout(() => {
-              btn.textContent = orig;
-            }, 1500);
-          })
+          .then(() => showToast())
           .catch(() => alert("複製失敗，請手動複製。"));
+      }
+
+      function showToast() {
+        const t = document.getElementById("toast");
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 1800);
       }
 
       function showTab(index) {
@@ -1181,5 +1203,6 @@
         </div>
       </div>
     </div>
+    <div id="toast">已複製！</div>
   </body>
 </html>
