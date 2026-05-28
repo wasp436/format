@@ -9,11 +9,6 @@
       http-equiv="Permissions-Policy"
       content="geolocation=(), microphone=(), camera=()"
     />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-      integrity="sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H"
-      crossorigin="anonymous"
-    ></script>
     <style>
       * {
         box-sizing: border-box;
@@ -242,31 +237,6 @@
       }
       .copy-btn:active {
         background: #d0d0d0;
-      }
-
-      .export-btn {
-        padding: 12px 36px;
-        background: #2c3e50;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        font-size: 16px;
-        font-family: inherit;
-        cursor: pointer;
-        letter-spacing: 1px;
-        transition: background 0.2s;
-      }
-
-      .export-btn:hover {
-        background: #1a252f;
-      }
-      .export-btn:active {
-        background: #0d161e;
-      }
-
-      /* 匯出時隱藏按鈕 */
-      .export-bar.hidden {
-        display: none;
       }
 
       @media (max-width: 600px) {
@@ -506,12 +476,6 @@
         </div>
         <div class="export-bar">
           <button
-            class="export-btn"
-            onclick="exportImg('form-0', '中正樓拆終端箱回報')"
-          >
-            匯出成圖片
-          </button>
-          <button
             class="copy-btn"
             onclick="copyText('form-0', '中正樓拆終端箱回報')"
           >
@@ -667,12 +631,6 @@
         </div>
         <div class="export-bar">
           <button
-            class="export-btn"
-            onclick="exportImg('form-1', '全院小型送風機需汰換回報')"
-          >
-            匯出成圖片
-          </button>
-          <button
             class="copy-btn"
             onclick="copyText('form-1', '全院小型送風機需汰換回報')"
           >
@@ -799,12 +757,6 @@
         </div>
         <div class="export-bar">
           <button
-            class="export-btn"
-            onclick="exportImg('form-2', '全院保溫失效回報')"
-          >
-            匯出成圖片
-          </button>
-          <button
             class="copy-btn"
             onclick="copyText('form-2', '全院保溫失效回報')"
           >
@@ -890,12 +842,6 @@
           </ol>
         </div>
         <div class="export-bar">
-          <button
-            class="export-btn"
-            onclick="exportImg('form-3', '全院變頻器故障回報')"
-          >
-            匯出成圖片
-          </button>
           <button
             class="copy-btn"
             onclick="copyText('form-3', '全院變頻器故障回報')"
@@ -1001,12 +947,6 @@
         </div>
         <div class="export-bar">
           <button
-            class="export-btn"
-            onclick="exportImg('form-4', '全院管路漏水故障回報')"
-          >
-            匯出成圖片
-          </button>
-          <button
             class="copy-btn"
             onclick="copyText('form-4', '全院管路漏水故障回報')"
           >
@@ -1074,82 +1014,6 @@
         });
       }
 
-      function exportImg(formId, filename) {
-        const formEl = document.getElementById(formId);
-        const exportBar = formEl
-          .closest(".form-panel")
-          .querySelector(".export-bar");
-
-        exportBar.classList.add("hidden");
-
-        const clone = formEl.cloneNode(true);
-        clone.style.position = "fixed";
-        clone.style.top = "-9999px";
-        clone.style.left = "0";
-        clone.style.width = "400px";
-        clone.style.padding = "20px 16px";
-        document.body.appendChild(clone);
-
-        clone.querySelectorAll(".view-img-link").forEach((el) => el.remove());
-
-        const origInputs = formEl.querySelectorAll('input[type="text"]');
-        const cloneInputs = clone.querySelectorAll('input[type="text"]');
-        cloneInputs.forEach((input, i) => {
-          const val = origInputs[i].value;
-          const span = document.createElement("span");
-          span.textContent = addCJKSpacing(val) || " ";
-          span.style.flex = "1";
-          span.style.minWidth = "60px";
-          span.style.borderBottom = "1.5px solid #555";
-          span.style.fontSize = "15px";
-          span.style.fontFamily = "inherit";
-          span.style.padding = "0 4px 1px";
-          const labelText =
-            input.closest("li")?.querySelector(".item-label")?.textContent ||
-            "";
-          span.style.color = labelText.includes("勘查人員")
-            ? "#222"
-            : "#d32f2f";
-          input.replaceWith(span);
-        });
-
-        clone.querySelectorAll(".date-picker-trigger").forEach((el) => {
-          el.style.color = "#d32f2f";
-        });
-
-        const origCbs = formEl.querySelectorAll('input[type="checkbox"]');
-        const cloneCbs = clone.querySelectorAll('input[type="checkbox"]');
-        cloneCbs.forEach((cb, i) => {
-          const checked = origCbs[i].checked;
-          const span = document.createElement("span");
-          span.textContent = checked ? "☑" : "☐";
-          span.style.fontSize = "20px";
-          span.style.lineHeight = "1";
-          span.style.flexShrink = "0";
-          if (checked) span.style.color = "#d32f2f";
-          cb.replaceWith(span);
-        });
-
-        html2canvas(clone, {
-          scale: 2,
-          useCORS: true,
-          backgroundColor: "#ffffff",
-          logging: false,
-        })
-          .then((canvas) => {
-            document.body.removeChild(clone);
-            exportBar.classList.remove("hidden");
-            const link = document.createElement("a");
-            link.download = filename + ".png";
-            link.href = canvas.toDataURL("image/png");
-            link.click();
-          })
-          .catch(() => {
-            document.body.removeChild(clone);
-            exportBar.classList.remove("hidden");
-            alert("匯出失敗，請稍後再試。");
-          });
-      }
       // ---- 日期選擇器 ----
       const ITEM_H = 40;
       let pickerTarget = null;
@@ -1183,7 +1047,7 @@
           const d = dayArr[getIdx("pcol-day")];
           if (y != null && m != null && d != null) {
             pickerTarget.dataset.date = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-            pickerTarget.textContent = `${y}年${m}月${d}日`;
+            pickerTarget.textContent = `${y - 1911}.${m}.${d}`;
           }
         }
         document.getElementById("date-picker-overlay").classList.remove("open");
@@ -1200,7 +1064,7 @@
 
         fillCol(
           "pcol-year",
-          yearArr.map((v) => v + "年"),
+          yearArr.map((v) => v - 1911 + "年"),
           yearArr.indexOf(y),
         );
         fillCol(
@@ -1272,7 +1136,7 @@
         const m = today.getMonth() + 1;
         const d = today.getDate();
         const dateStr = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-        const label = `${y}年${m}月${d}日`;
+        const label = `${y - 1911}.${m}.${d}`;
         document.querySelectorAll(".date-picker-trigger").forEach((el) => {
           el.dataset.date = dateStr;
           el.textContent = label;
