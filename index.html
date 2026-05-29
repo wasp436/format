@@ -221,15 +221,14 @@
       }
 
       .copy-btn {
-        padding: 12px 24px;
+        padding: 10px 12px;
         background: #fff;
         color: #2c3e50;
         border: 2px solid #2c3e50;
         border-radius: 6px;
-        font-size: 16px;
+        font-size: 14px;
         font-family: inherit;
         cursor: pointer;
-        letter-spacing: 1px;
         transition: background 0.2s;
       }
       .copy-btn:hover {
@@ -237,6 +236,42 @@
       }
       .copy-btn:active {
         background: #d0d0d0;
+      }
+
+      .paste-btn {
+        padding: 10px 12px;
+        background: #fff;
+        color: #1976d2;
+        border: 2px solid #1976d2;
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: inherit;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .paste-btn:hover {
+        background: #e3f2fd;
+      }
+      .paste-btn:active {
+        background: #bbdefb;
+      }
+
+      .clear-btn {
+        padding: 10px 12px;
+        background: #fff;
+        color: #c62828;
+        border: 2px solid #c62828;
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: inherit;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .clear-btn:hover {
+        background: #ffebee;
+      }
+      .clear-btn:active {
+        background: #ffcdd2;
       }
 
       @media (max-width: 600px) {
@@ -408,6 +443,60 @@
         opacity: 1;
         transform: translateX(-50%) translateY(0);
       }
+
+      #schedule-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 9998;
+        align-items: center;
+        justify-content: center;
+      }
+      #schedule-modal.open {
+        display: flex;
+      }
+      #schedule-box {
+        background: #fff;
+        border-radius: 12px;
+        padding: 28px 32px;
+        min-width: 320px;
+        max-width: 90vw;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+      }
+      #schedule-box h2 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 16px;
+        color: #2c3e50;
+      }
+      #schedule-box ul {
+        list-style: none;
+        margin-bottom: 20px;
+        line-height: 2;
+        font-size: 15px;
+      }
+      .schedule-green {
+        color: #2e7d32;
+      }
+      .schedule-red {
+        color: #d32f2f;
+      }
+      #schedule-close {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background: #2c3e50;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 15px;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      #schedule-close:hover {
+        background: #1a252f;
+      }
     </style>
   </head>
   <body>
@@ -420,6 +509,7 @@
       <button class="tab-btn" onclick="showTab(2)">全院保溫失效</button>
       <button class="tab-btn" onclick="showTab(3)">全院變頻器故障</button>
       <button class="tab-btn" onclick="showTab(4)">全院管路漏水故障</button>
+      <button class="tab-btn" onclick="showTab(5)">全院工作閥故障</button>
     </div>
 
     <div class="content">
@@ -503,6 +593,10 @@
           >
             複製文字
           </button>
+          <button class="paste-btn" onclick="pasteFromClipboard()">
+            貼回表單
+          </button>
+          <button class="clear-btn" onclick="clearForm()">清空表單</button>
         </div>
       </div>
 
@@ -658,6 +752,10 @@
           >
             複製文字
           </button>
+          <button class="paste-btn" onclick="pasteFromClipboard()">
+            貼回表單
+          </button>
+          <button class="clear-btn" onclick="clearForm()">清空表單</button>
         </div>
       </div>
 
@@ -784,6 +882,10 @@
           >
             複製文字
           </button>
+          <button class="paste-btn" onclick="pasteFromClipboard()">
+            貼回表單
+          </button>
+          <button class="clear-btn" onclick="clearForm()">清空表單</button>
         </div>
       </div>
 
@@ -870,6 +972,10 @@
           >
             複製文字
           </button>
+          <button class="paste-btn" onclick="pasteFromClipboard()">
+            貼回表單
+          </button>
+          <button class="clear-btn" onclick="clearForm()">清空表單</button>
         </div>
       </div>
 
@@ -974,6 +1080,82 @@
           >
             複製文字
           </button>
+          <button class="paste-btn" onclick="pasteFromClipboard()">
+            貼回表單
+          </button>
+          <button class="clear-btn" onclick="clearForm()">清空表單</button>
+        </div>
+      </div>
+      <!-- ===== 表單 6：全院工作閥故障回報項目 ===== -->
+      <div class="form-panel" id="panel-5">
+        <div class="form-card" id="form-5">
+          <div class="form-header">
+            <span class="form-title red">全院工作閥故障回報項目</span>
+            <a
+              class="view-img-link"
+              href="1780052426012.png"
+              target="_blank"
+              rel="noopener noreferrer"
+              >查看原圖</a
+            >
+          </div>
+          <ol class="form-list">
+            <li>
+              <span class="item-label">設備地點：</span>
+              <input type="text" class="long" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">設備編號：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">工作閥廠牌：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">工作閥型號：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label"
+                ><span class="underline">工作閥管徑</span>：</span
+              >
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <label class="item-label" for="f6-shutoff"
+                >故障工作閥之前<span class="underline">後關斷閥</span
+                >確認可關閉</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f6-shutoff" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label" for="f6-photo"
+                >上傳榮總群組清晰照片</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f6-photo" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label">勘查人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+          </ol>
+        </div>
+        <div class="export-bar">
+          <button
+            class="copy-btn"
+            onclick="copyText('form-5', '全院工作閥故障回報')"
+          >
+            複製文字
+          </button>
+          <button class="paste-btn" onclick="pasteFromClipboard()">
+            貼回表單
+          </button>
+          <button class="clear-btn" onclick="clearForm()">清空表單</button>
         </div>
       </div>
     </div>
@@ -1021,10 +1203,99 @@
           .catch(() => alert("複製失敗，請手動複製。"));
       }
 
-      function showToast() {
+      function showToast(msg) {
         const t = document.getElementById("toast");
+        t.textContent = msg || "已複製！";
         t.classList.add("show");
-        setTimeout(() => t.classList.remove("show"), 1800);
+        setTimeout(() => {
+          t.classList.remove("show");
+          t.textContent = "已複製！";
+        }, 1800);
+      }
+
+      function pasteFromClipboard() {
+        navigator.clipboard
+          .readText()
+          .then((text) => fillFormFromText(text))
+          .catch(() => alert("無法讀取剪貼簿，請確認瀏覽器已允許存取剪貼簿"));
+      }
+
+      function clearForm() {
+        const activePanel = document.querySelector(".form-panel.active");
+        if (!activePanel) return;
+        const formCard = activePanel.querySelector(".form-card");
+
+        formCard.querySelectorAll('input[type="text"]').forEach((input) => {
+          input.value = "";
+        });
+        formCard.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+          cb.checked = false;
+        });
+
+        const today = new Date();
+        const y = today.getFullYear();
+        const m = today.getMonth() + 1;
+        const d = today.getDate();
+        const dateStr = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        const label = `${y - 1911}.${m}.${d}`;
+        formCard.querySelectorAll(".date-picker-trigger").forEach((el) => {
+          el.dataset.date = dateStr;
+          el.textContent = label;
+        });
+
+        showToast("已清空！");
+      }
+
+      function fillFormFromText(text) {
+        const activePanel = document.querySelector(".form-panel.active");
+        if (!activePanel) return;
+        const formCard = activePanel.querySelector(".form-card");
+        const lines = text
+          .trim()
+          .split("\n")
+          .filter((l) => /^\d+\./.test(l));
+        const listItems = formCard.querySelectorAll(".form-list li");
+
+        lines.forEach((line, idx) => {
+          if (idx >= listItems.length) return;
+          const li = listItems[idx];
+          let rest = line.replace(/^\d+\.\s*/, "");
+
+          const labelText =
+            li.querySelector(".item-label")?.textContent?.trim() || "";
+          if (rest.startsWith(labelText))
+            rest = rest.slice(labelText.length).trim();
+
+          li.querySelectorAll(".cb-group").forEach((group) => {
+            const cb = group.querySelector('input[type="checkbox"]');
+            const lbl = group.querySelector("label")?.textContent?.trim() || "";
+            if (!cb) return;
+            if (lbl) {
+              const escaped = lbl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+              const m = rest.match(new RegExp("[☑☐]" + escaped));
+              if (m) cb.checked = m[0][0] === "☑";
+            } else {
+              const m = rest.match(/[☑☐]/);
+              if (m) cb.checked = m[0] === "☑";
+            }
+          });
+
+          rest = rest.replace(/[☑☐]\S*/g, "").trim();
+
+          const trigger = li.querySelector(".date-picker-trigger");
+          if (trigger && /^\d{2,3}\.\d{1,2}\.\d{1,2}$/.test(rest)) {
+            const [rocY, m, d] = rest.split(".").map(Number);
+            const y = rocY + 1911;
+            trigger.dataset.date = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+            trigger.textContent = rest;
+            return;
+          }
+
+          const input = li.querySelector('input[type="text"]');
+          if (input) input.value = rest;
+        });
+
+        showToast("已貼回！");
       }
 
       function showTab(index) {
@@ -1177,6 +1448,36 @@
             });
           });
         });
+
+      const _schedule = [
+        { name: "中正樓 拆終端箱回報項目", date: null },
+        { name: "全院小型送風機需汰換回報項目", date: "2026-05-27" },
+        { name: "全院保溫失效回報項目", date: "2026-05-26" },
+        { name: "全院變頻器故障回報項目", date: "2026-04-22" },
+        { name: "全院管路漏水故障回報項目", date: "2026-05-25" },
+        { name: "全院工作閥故障回報項目", date: "2026-05-29" },
+      ];
+      document.addEventListener("DOMContentLoaded", function () {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const ul = document.getElementById("schedule-list");
+        _schedule.forEach(({ name, date }) => {
+          const li = document.createElement("li");
+          if (!date) {
+            li.textContent = `${name}：不明(?天)前`;
+          } else {
+            const [y, m, d] = date.split("-").map(Number);
+            const rocDate = `${y - 1911}.${m}.${d}`;
+            const diff = Math.abs(
+              Math.round((today - new Date(date)) / 86400000),
+            );
+            li.textContent = `${name}：${rocDate}(${diff}天前)`;
+            li.className = diff <= 30 ? "schedule-green" : "schedule-red";
+          }
+          ul.appendChild(li);
+        });
+        document.getElementById("schedule-modal").classList.add("open");
+      });
     </script>
 
     <!-- 日期選擇器 overlay -->
@@ -1201,6 +1502,20 @@
           <div class="picker-col" id="pcol-month"></div>
           <div class="picker-col" id="pcol-day"></div>
         </div>
+      </div>
+    </div>
+    <div id="schedule-modal">
+      <div id="schedule-box">
+        <h2>最後更新日期：</h2>
+        <ul id="schedule-list"></ul>
+        <button
+          id="schedule-close"
+          onclick="
+            document.getElementById('schedule-modal').classList.remove('open')
+          "
+        >
+          確定
+        </button>
       </div>
     </div>
     <div id="toast">已複製！</div>
