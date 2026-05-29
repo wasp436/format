@@ -100,14 +100,37 @@
         font-size: 12px;
         color: #1976d2;
         text-decoration: none;
+        background: none;
         border: 1px solid #1976d2;
         border-radius: 4px;
         padding: 2px 8px;
         vertical-align: middle;
+        cursor: pointer;
+        font-family: inherit;
       }
 
       .view-img-link:hover {
         background: #e3f2fd;
+      }
+
+      #img-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+        cursor: zoom-out;
+      }
+      #img-modal.open {
+        display: flex;
+      }
+      #img-modal img {
+        max-width: 92vw;
+        max-height: 92vh;
+        border-radius: 4px;
+        pointer-events: none;
       }
 
       /* 項目列表 */
@@ -518,13 +541,12 @@
         <div class="form-card" id="form-0">
           <div class="form-header">
             <span class="form-title">中正樓 拆終端箱回報項目</span>
-            <a
+            <button
               class="view-img-link"
-              href="1755224345582.jpg"
-              target="_blank"
-              rel="noopener noreferrer"
-              >查看原圖</a
+              onclick="openImgModal('1755224345582.jpg')"
             >
+              查看原圖
+            </button>
           </div>
           <ol class="form-list">
             <li>
@@ -605,13 +627,12 @@
         <div class="form-card" id="form-1">
           <div class="form-header">
             <span class="form-title">全院小型送風機需汰換回報項目</span>
-            <a
+            <button
               class="view-img-link"
-              href="1779855650856.png"
-              target="_blank"
-              rel="noopener noreferrer"
-              >查看原圖</a
+              onclick="openImgModal('1779855650856.png')"
             >
+              查看原圖
+            </button>
           </div>
           <ol class="form-list">
             <li>
@@ -764,13 +785,12 @@
         <div class="form-card" id="form-2">
           <div class="form-header">
             <span class="form-title">全院保溫失效回報項目</span>
-            <a
+            <button
               class="view-img-link"
-              href="1779778627168.png"
-              target="_blank"
-              rel="noopener noreferrer"
-              >查看原圖</a
+              onclick="openImgModal('1779778627168.png')"
             >
+              查看原圖
+            </button>
           </div>
           <ol class="form-list">
             <li>
@@ -894,13 +914,12 @@
         <div class="form-card" id="form-3">
           <div class="form-header">
             <span class="form-title">全院變頻器故障回報項目</span>
-            <a
+            <button
               class="view-img-link"
-              href="1776819933487.jpg"
-              target="_blank"
-              rel="noopener noreferrer"
-              >查看原圖</a
+              onclick="openImgModal('1776819933487.jpg')"
             >
+              查看原圖
+            </button>
           </div>
           <ol class="form-list">
             <li>
@@ -984,13 +1003,12 @@
         <div class="form-card" id="form-4">
           <div class="form-header">
             <span class="form-title red">全院管路漏水故障回報項目</span>
-            <a
+            <button
               class="view-img-link"
-              href="1778631115360.png"
-              target="_blank"
-              rel="noopener noreferrer"
-              >查看原圖</a
+              onclick="openImgModal('1778631115360.png')"
             >
+              查看原圖
+            </button>
           </div>
           <ol class="form-list">
             <li>
@@ -1091,13 +1109,12 @@
         <div class="form-card" id="form-5">
           <div class="form-header">
             <span class="form-title red">全院工作閥故障回報項目</span>
-            <a
+            <button
               class="view-img-link"
-              href="1780052426012.png"
-              target="_blank"
-              rel="noopener noreferrer"
-              >查看原圖</a
+              onclick="openImgModal('1780052426012.png')"
             >
+              查看原圖
+            </button>
           </div>
           <ol class="form-list">
             <li>
@@ -1201,6 +1218,16 @@
           .writeText(lines.join("\n"))
           .then(() => showToast())
           .catch(() => alert("複製失敗，請手動複製。"));
+      }
+
+      function openImgModal(src) {
+        document.getElementById("img-modal-src").src = src;
+        document.getElementById("img-modal").classList.add("open");
+      }
+
+      function closeImgModal() {
+        document.getElementById("img-modal").classList.remove("open");
+        document.getElementById("img-modal-src").src = "";
       }
 
       function showToast(msg) {
@@ -1450,12 +1477,12 @@
         });
 
       const _schedule = [
-        { name: "中正樓 拆終端箱回報項目", date: null },
-        { name: "全院小型送風機需汰換回報項目", date: "2026-05-27" },
-        { name: "全院保溫失效回報項目", date: "2026-05-26" },
-        { name: "全院變頻器故障回報項目", date: "2026-04-22" },
-        { name: "全院管路漏水故障回報項目", date: "2026-05-25" },
-        { name: "全院工作閥故障回報項目", date: "2026-05-29" },
+        { name: "中正樓 拆終端箱", date: null },
+        { name: "小型送風機需汰換", date: "2026-05-27" },
+        { name: "保溫失效", date: "2026-05-26" },
+        { name: "變頻器故障", date: "2026-04-22" },
+        { name: "管路漏水故障", date: "2026-05-25" },
+        { name: "工作閥故障", date: "2026-05-29" },
       ];
       document.addEventListener("DOMContentLoaded", function () {
         const today = new Date();
@@ -1517,6 +1544,9 @@
           確定
         </button>
       </div>
+    </div>
+    <div id="img-modal" onclick="closeImgModal()">
+      <img id="img-modal-src" src="" alt="原圖" />
     </div>
     <div id="toast">已複製！</div>
   </body>
