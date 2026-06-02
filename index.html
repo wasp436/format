@@ -526,7 +526,7 @@
     <!-- 分頁按鈕 -->
     <div class="tabs">
       <button class="tab-btn active" onclick="showTab(0)">
-        中正樓 拆終端箱
+        全院終端箱拆除
       </button>
       <button class="tab-btn" onclick="showTab(1)">全院小型送風機需汰換</button>
       <button class="tab-btn" onclick="showTab(2)">全院保溫失效</button>
@@ -536,14 +536,14 @@
     </div>
 
     <div class="content">
-      <!-- ===== 表單 1：中正樓 拆終端箱回報項目 ===== -->
+      <!-- ===== 表單 1：全院終端箱拆除回報項目 ===== -->
       <div class="form-panel active" id="panel-0">
         <div class="form-card" id="form-0">
           <div class="form-header">
-            <span class="form-title">中正樓 拆終端箱回報項目</span>
+            <span class="form-title">全院終端箱拆除回報項目</span>
             <button
               class="view-img-link"
-              onclick="openImgModal('1755224345582.jpg')"
+              onclick="openImgModal('1780366927777.png')"
             >
               查看原圖
             </button>
@@ -561,49 +561,86 @@
               <input type="text" class="long" placeholder="" />
             </li>
             <li>
-              <span class="item-label">位於</span>
+              <label class="item-label red" for="f1-air-box"
+                >確認供給 空調箱編號</label
+              >
               <span class="cb-group">
-                <input type="checkbox" id="f1-room" />
-                <label class="cb-label" for="f1-room">房內</label>
-              </span>
-              <span class="item-label">或</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f1-corridor" />
-                <label class="cb-label" for="f1-corridor">走道</label>
+                <input type="checkbox" id="f1-air-box" />
               </span>
             </li>
             <li>
-              <label class="item-label" for="f1-repair">通知單位打請修單</label>
+              <label class="item-label red" for="f1-photo"
+                >上傳相對位置照片至<span class="underline">群組</span></label
+              >
               <span class="cb-group">
-                <input type="checkbox" id="f1-repair" />
+                <input type="checkbox" id="f1-photo" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f1-unit-need"
+                >確認單位需求</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f1-unit-need" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f1-valve"
+                >確認終端箱 前方<span class="underline">關斷閥</span>位置</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f1-valve" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f1-damage"
+                >確認其他相關管線或零配件是否損壞</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f1-damage" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label red">型式：</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f1-square" />
+                <label class="cb-label red" for="f1-square">方形風管</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f1-spiral" />
+                <label class="cb-label red" for="f1-spiral">螺旋風管</label>
               </span>
             </li>
             <li>
               <span class="item-label"
-                ><span class="underline">上傳群組</span> 清晰照片</span
+                ><span class="underline">風管尺吋</span>：</span
               >
-              <span class="sub-note">（請上傳至群組）</span>
+              <input type="text" class="medium" placeholder="" />
             </li>
             <li>
-              <span class="item-label">出風口數量：</span>
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label"
-                >使用<span class="underline">合梯幾尺</span>：</span
+              <span class="item-label red"
+                ><span class="underline">需合梯幾尺</span>：</span
               >
               <input type="text" class="short" placeholder="" />
             </li>
             <li>
-              <span class="item-label">單位人員：</span>
+              <span class="item-label">可施工時間：</span>
               <input type="text" class="medium" placeholder="" />
             </li>
             <li>
-              <span class="item-label">單位電話：</span>
+              <span class="item-label">請修單編號：</span>
               <input type="text" class="medium" placeholder="" />
             </li>
             <li>
-              <span class="item-label">勘查人員：</span>
+              <span class="item-label">單位來電人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">單位聯絡電話：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">我方勘查人員：</span>
               <input type="text" class="medium" placeholder="" />
             </li>
           </ol>
@@ -611,7 +648,7 @@
         <div class="export-bar">
           <button
             class="copy-btn"
-            onclick="copyText('form-0', '中正樓拆終端箱回報')"
+            onclick="copyText('form-0', '全院終端箱拆除回報')"
           >
             複製文字
           </button>
@@ -1477,7 +1514,7 @@
         });
 
       const _schedule = [
-        { name: "中正樓 拆終端箱", date: "2025-08-15" },
+        { name: "全院終端箱拆除", date: "2026-06-02" },
         { name: "小型送風機需汰換", date: "2026-05-27" },
         { name: "保溫失效", date: "2026-05-26" },
         { name: "變頻器故障", date: "2026-04-22" },
