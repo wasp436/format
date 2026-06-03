@@ -666,7 +666,7 @@
             <span class="form-title">全院小型送風機需汰換回報項目</span>
             <button
               class="view-img-link"
-              onclick="openImgModal('1779855650856.png')"
+              onclick="openImgModal('1780455854484.png')"
             >
               查看原圖
             </button>
@@ -772,6 +772,23 @@
               </span>
             </li>
             <li>
+              <span class="item-label red">控制盒故障：</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-b220" />
+                <label class="cb-label red" for="f2-b220">220V</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-b110" />
+                <label class="cb-label red" for="f2-b110">110V</label>
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f2-motor">馬達是否故障</label>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-motor" />
+              </span>
+            </li>
+            <li>
               <span class="item-label">出風口數量：</span>
               <input type="text" class="short" placeholder="" />
             </li>
@@ -786,7 +803,7 @@
               <input type="text" class="short" placeholder="" />
             </li>
             <li>
-              <span class="item-label">方便施工時間：</span>
+              <span class="item-label">單位可施工時間：</span>
               <input type="text" class="medium" placeholder="" />
             </li>
             <li>
@@ -1514,8 +1531,8 @@
         });
 
       const _schedule = [
-        { name: "全院終端箱拆除", date: "2026-06-02" },
-        { name: "小型送風機需汰換", date: "2026-05-27" },
+        { name: "終端箱拆除", date: "2026-06-02" },
+        { name: "小型送風機需汰換", date: "2026-06-03" },
         { name: "保溫失效", date: "2026-05-26" },
         { name: "變頻器故障", date: "2026-04-22" },
         { name: "管路漏水故障", date: "2026-05-25" },
