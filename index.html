@@ -533,6 +533,7 @@
       <button class="tab-btn" onclick="showTab(3)">全院變頻器故障</button>
       <button class="tab-btn" onclick="showTab(4)">全院管路漏水故障</button>
       <button class="tab-btn" onclick="showTab(5)">全院工作閥故障</button>
+      <button class="tab-btn" onclick="showTab(6)">中正樓 拆終端箱</button>
     </div>
 
     <div class="content">
@@ -666,7 +667,7 @@
             <span class="form-title">全院小型送風機需汰換回報項目</span>
             <button
               class="view-img-link"
-              onclick="openImgModal('1780455854484.png')"
+              onclick="openImgModal('1781693431187.jpg')"
             >
               查看原圖
             </button>
@@ -688,12 +689,32 @@
               <input type="text" class="long" placeholder="" />
             </li>
             <li>
-              <span class="item-label">F/C 型號：</span>
+              <span class="item-label red">F/C 型號：</span>
               <input type="text" class="medium" placeholder="" />
             </li>
             <li>
-              <span class="item-label">F/C 電壓：</span>
+              <span class="item-label red">F/C 電壓：</span>
               <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-replace-unit" />
+                <label class="cb-label red" for="f2-replace-unit"
+                  >汰換整台</label
+                >
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-replace-valve" />
+                <label class="cb-label red" for="f2-replace-valve"
+                  >更換控制閥</label
+                >
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-replace-panel" />
+                <label class="cb-label red" for="f2-replace-panel"
+                  >更換面板</label
+                >
+              </span>
             </li>
             <li>
               <span class="item-label">F/C 箱體位於</span>
@@ -707,7 +728,12 @@
               </span>
             </li>
             <li>
-              <label class="item-label" for="f2-repair">通知單位打請修單</label>
+              <label class="item-label" for="f2-repair"
+                >通知<span class="underline">單位</span>打<span
+                  class="underline"
+                  >請修</span
+                >單</label
+              >
               <span class="cb-group">
                 <input type="checkbox" id="f2-repair" />
               </span>
@@ -1229,6 +1255,134 @@
           <button class="clear-btn" onclick="clearForm()">清空表單</button>
         </div>
       </div>
+
+      <!-- ===== 表單 7：中正樓 拆終端箱回報項目 ===== -->
+      <div class="form-panel" id="panel-6">
+        <div class="form-card" id="form-6">
+          <div class="form-header">
+            <span class="form-title">中正樓 拆終端箱回報項目</span>
+            <button
+              class="view-img-link"
+              onclick="openImgModal('1781688550960.png')"
+            >
+              查看原圖
+            </button>
+          </div>
+          <ol class="form-list">
+            <li>
+              <span class="item-label">發生日期：</span>
+              <div
+                class="date-picker-trigger"
+                onclick="openDatePicker(this)"
+              ></div>
+            </li>
+            <li>
+              <span class="item-label">發生地點：</span>
+              <input type="text" class="long" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">位於</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f7-room" />
+                <label class="cb-label" for="f7-room">房內</label>
+              </span>
+              <span class="item-label">或</span>
+              <span class="cb-group">
+                <input type="checkbox" id="f7-corridor" />
+                <label class="cb-label" for="f7-corridor">走道</label>
+              </span>
+            </li>
+            <li>
+              <label class="item-label" for="f7-notify"
+                >通知<span class="underline">單位</span>打<span
+                  class="underline"
+                  >請修單</span
+                ></label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f7-notify" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label" for="f7-airflow"
+                >拆除終端<span class="underline">箱進風端</span
+                >．確認出風量</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f7-airflow" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label" for="f7-damper"
+                >確認<span class="underline">進風端</span>是否風門全開</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f7-damper" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label" for="f7-photo"
+                ><span class="underline">上傳群組</span> 清晰照片</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f7-photo" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label" for="f7-repair"
+                >請<span class="underline">單位</span>打<span class="underline"
+                  >請修單</span
+                ></label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f7-repair" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label">請修單編號：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">出風口數量：</span>
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label"
+                >使用<span class="underline">合梯幾尺</span>：</span
+              >
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">單位可施工時間：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">單位人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">單位電話：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">勘查人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+          </ol>
+        </div>
+        <div class="export-bar">
+          <button
+            class="copy-btn"
+            onclick="copyText('form-6', '中正樓拆終端箱回報')"
+          >
+            複製文字
+          </button>
+          <button class="paste-btn" onclick="pasteFromClipboard()">
+            貼回表單
+          </button>
+          <button class="clear-btn" onclick="clearForm()">清空表單</button>
+        </div>
+      </div>
     </div>
     <!-- /content -->
 
@@ -1324,6 +1478,7 @@
           el.textContent = label;
         });
 
+        saveFormState(formCard.id);
         showToast("已清空！");
       }
 
@@ -1376,6 +1531,7 @@
           if (input) input.value = rest;
         });
 
+        saveFormState(formCard.id);
         showToast("已貼回！");
       }
 
@@ -1422,6 +1578,8 @@
           if (y != null && m != null && d != null) {
             pickerTarget.dataset.date = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
             pickerTarget.textContent = `${y - 1911}.${m}.${d}`;
+            const card = pickerTarget.closest(".form-card");
+            if (card) saveFormState(card.id);
           }
         }
         document.getElementById("date-picker-overlay").classList.remove("open");
@@ -1530,13 +1688,56 @@
           });
         });
 
+      function saveFormState(formId) {
+        const card = document.getElementById(formId);
+        if (!card) return;
+        const state = { inputs: {}, checkboxes: {}, dates: {} };
+        card.querySelectorAll('input[type="text"]').forEach((el, i) => {
+          state.inputs[i] = el.value;
+        });
+        card.querySelectorAll('input[type="checkbox"]').forEach((el) => {
+          state.checkboxes[el.id] = el.checked;
+        });
+        card.querySelectorAll(".date-picker-trigger").forEach((el, i) => {
+          state.dates[i] = {
+            date: el.dataset.date || "",
+            text: el.textContent,
+          };
+        });
+        localStorage.setItem("form:" + formId, JSON.stringify(state));
+      }
+
+      function loadFormState(formId) {
+        const card = document.getElementById(formId);
+        if (!card) return;
+        const raw = localStorage.getItem("form:" + formId);
+        if (!raw) return;
+        try {
+          const state = JSON.parse(raw);
+          card.querySelectorAll('input[type="text"]').forEach((el, i) => {
+            if (state.inputs?.[i] != null) el.value = state.inputs[i];
+          });
+          card.querySelectorAll('input[type="checkbox"]').forEach((el) => {
+            if (state.checkboxes?.[el.id] != null)
+              el.checked = state.checkboxes[el.id];
+          });
+          card.querySelectorAll(".date-picker-trigger").forEach((el, i) => {
+            if (state.dates?.[i]?.text) {
+              if (state.dates[i].date) el.dataset.date = state.dates[i].date;
+              el.textContent = state.dates[i].text;
+            }
+          });
+        } catch {}
+      }
+
       const _schedule = [
-        { name: "終端箱拆除", date: "2026-06-02" },
-        { name: "小型送風機需汰換", date: "2026-06-03" },
+        { name: "終端箱拆除", date: "2026-06-03" },
+        { name: "小型送風機需汰換", date: "2026-06-17" },
         { name: "保溫失效", date: "2026-05-26" },
         { name: "變頻器故障", date: "2026-04-22" },
         { name: "管路漏水故障", date: "2026-05-25" },
         { name: "工作閥故障", date: "2026-05-29" },
+        { name: "中正樓拆終端箱", date: "2026-06-17" },
       ];
       document.addEventListener("DOMContentLoaded", function () {
         const today = new Date();
@@ -1558,6 +1759,21 @@
           ul.appendChild(li);
         });
         document.getElementById("schedule-modal").classList.add("open");
+
+        [
+          "form-0",
+          "form-1",
+          "form-2",
+          "form-3",
+          "form-4",
+          "form-5",
+          "form-6",
+        ].forEach(loadFormState);
+
+        document.querySelectorAll(".form-card").forEach((card) => {
+          card.addEventListener("input", () => saveFormState(card.id));
+          card.addEventListener("change", () => saveFormState(card.id));
+        });
       });
     </script>
 
