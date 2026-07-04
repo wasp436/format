@@ -133,6 +133,73 @@
         pointer-events: none;
       }
 
+      .gen-btn {
+        padding: 10px 12px;
+        background: #fff;
+        color: #2e7d32;
+        border: 2px solid #2e7d32;
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: inherit;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .gen-btn:hover {
+        background: #e8f5e9;
+      }
+      .gen-btn:active {
+        background: #c8e6c9;
+      }
+
+      #output-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 10001;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px;
+      }
+      #output-modal.open {
+        display: flex;
+      }
+      #output-modal img {
+        max-width: 92vw;
+        max-height: 76vh;
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      }
+      .output-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .output-actions button {
+        padding: 10px 16px;
+        border-radius: 6px;
+        border: none;
+        font-size: 14px;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      #output-download-btn {
+        background: #1976d2;
+        color: #fff;
+      }
+      #output-copy-btn {
+        background: #2e7d32;
+        color: #fff;
+      }
+      #output-close-btn {
+        background: #666;
+        color: #fff;
+      }
+
       /* 項目列表 */
       .form-list {
         list-style: none;
@@ -169,6 +236,12 @@
       .item-label {
         flex-shrink: 0;
         white-space: nowrap;
+      }
+
+      label.item-label,
+      .form-list li > .item-label:only-child {
+        white-space: normal;
+        flex-shrink: 1;
       }
 
       .red {
@@ -534,6 +607,7 @@
       <button class="tab-btn" onclick="showTab(4)">全院管路漏水故障</button>
       <button class="tab-btn" onclick="showTab(5)">全院工作閥故障</button>
       <button class="tab-btn" onclick="showTab(6)">中正樓 拆終端箱</button>
+      <button class="tab-btn" onclick="showTab(7)">全院空調噪音</button>
     </div>
 
     <div class="content">
@@ -657,6 +731,9 @@
             貼回表單
           </button>
           <button class="clear-btn" onclick="clearForm()">清空表單</button>
+          <button class="gen-btn" onclick="generateFormImage(this)">
+            輸出圖片
+          </button>
         </div>
       </div>
 
@@ -857,6 +934,9 @@
             貼回表單
           </button>
           <button class="clear-btn" onclick="clearForm()">清空表單</button>
+          <button class="gen-btn" onclick="generateFormImage(this)">
+            輸出圖片
+          </button>
         </div>
       </div>
 
@@ -986,6 +1066,9 @@
             貼回表單
           </button>
           <button class="clear-btn" onclick="clearForm()">清空表單</button>
+          <button class="gen-btn" onclick="generateFormImage(this)">
+            輸出圖片
+          </button>
         </div>
       </div>
 
@@ -1075,6 +1158,9 @@
             貼回表單
           </button>
           <button class="clear-btn" onclick="clearForm()">清空表單</button>
+          <button class="gen-btn" onclick="generateFormImage(this)">
+            輸出圖片
+          </button>
         </div>
       </div>
 
@@ -1182,6 +1268,9 @@
             貼回表單
           </button>
           <button class="clear-btn" onclick="clearForm()">清空表單</button>
+          <button class="gen-btn" onclick="generateFormImage(this)">
+            輸出圖片
+          </button>
         </div>
       </div>
       <!-- ===== 表單 6：全院工作閥故障回報項目 ===== -->
@@ -1253,6 +1342,9 @@
             貼回表單
           </button>
           <button class="clear-btn" onclick="clearForm()">清空表單</button>
+          <button class="gen-btn" onclick="generateFormImage(this)">
+            輸出圖片
+          </button>
         </div>
       </div>
 
@@ -1381,6 +1473,158 @@
             貼回表單
           </button>
           <button class="clear-btn" onclick="clearForm()">清空表單</button>
+          <button class="gen-btn" onclick="generateFormImage(this)">
+            輸出圖片
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== 表單 8：全院空調噪音回報項目 ===== -->
+      <div class="form-panel" id="panel-7">
+        <div class="form-card" id="form-7">
+          <div class="form-header">
+            <span class="form-title">全院空調噪音回報項目</span>
+            <button
+              class="view-img-link"
+              onclick="openImgModal('1782097276019.png')"
+            >
+              查看原圖
+            </button>
+          </div>
+          <ol class="form-list">
+            <li>
+              <span class="item-label">日期：</span>
+              <div
+                class="date-picker-trigger"
+                onclick="openDatePicker(this)"
+              ></div>
+            </li>
+            <li>
+              <span class="item-label">時間：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">地點：</span>
+              <input type="text" class="long" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">勘查員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <label class="item-label red" for="f8-lamp">出風口吹燈罩</label>
+              <span class="cb-group">
+                <input type="checkbox" id="f8-lamp" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f8-fc-motor"
+                >F/C 馬達故障</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f8-fc-motor" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f8-fc-valve"
+                >F/C 控制閥故障</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f8-fc-valve" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f8-fc-box"
+                >F/C 控制盒故障</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f8-fc-box" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f8-vibration"
+                >設備異常(避震器故障)傳至建築結構</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f8-vibration" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f8-sfef"
+                >SF.EF.
+                皮帶龜裂/彈性疲乏．馬達/風車軸承．風車葉輪．聯軸器等故障</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f8-sfef" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f8-ah"
+                >A/H
+                皮帶龜裂/彈性疲乏．馬達/風車軸承．風車葉輪．聯軸器．管排漏水等故障</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f8-ah" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f8-chilled"
+                >冰水管(泵浦故障)震動</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f8-chilled" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f8-cooling"
+                >冷卻水管(<span class="underline">回水濾網</span
+                >阻塞)震動</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f8-cooling" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f8-tower"
+                >冷卻水塔皮帶．馬達/風車軸承等故障</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f8-tower" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label red" for="f8-pump"
+                >泵浦馬達/泵浦軸承．聯軸器等故障</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f8-pump" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label">請修單編號：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label"
+                >如遇無法判斷，務必請→通知機動組長協助→通知區域領班勘查→以做後續處理。</span
+              >
+            </li>
+          </ol>
+        </div>
+        <div class="export-bar">
+          <button
+            class="copy-btn"
+            onclick="copyText('form-7', '全院空調噪音回報')"
+          >
+            複製文字
+          </button>
+          <button class="paste-btn" onclick="pasteFromClipboard()">
+            貼回表單
+          </button>
+          <button class="clear-btn" onclick="clearForm()">清空表單</button>
+          <button class="gen-btn" onclick="generateFormImage(this)">
+            輸出圖片
+          </button>
         </div>
       </div>
     </div>
@@ -1407,7 +1651,7 @@
             if (node.nodeType !== Node.ELEMENT_NODE) return;
             const el = node;
             if (el.classList.contains("item-label")) {
-              line += el.textContent.trim();
+              line += el.textContent.replace(/\s+/g, " ").trim();
             } else if (el.classList.contains("cb-group")) {
               const cb = el.querySelector('input[type="checkbox"]');
               const lbl = el.querySelector("label")?.textContent?.trim() || "";
@@ -1426,6 +1670,265 @@
           .writeText(lines.join("\n"))
           .then(() => showToast())
           .catch(() => alert("複製失敗，請手動複製。"));
+      }
+
+      let _outputCanvas = null;
+
+      const FORM_RED = "#d32f2f";
+      const FORM_BLACK = "#222";
+      const FORM_INK = "#17318f";
+      const FORM_FONT_STACK =
+        '"微軟正黑體","Microsoft JhengHei","蘋方-繁","PingFang TC",sans-serif';
+
+      function collectLiSegments(li) {
+        const segments = [];
+
+        function walk(node, style) {
+          node.childNodes.forEach((child) => {
+            if (child.nodeType === Node.TEXT_NODE) {
+              const t = child.textContent.replace(/\s+/g, " ");
+              if (t.trim()) {
+                segments.push({
+                  text: t,
+                  color: style.red ? FORM_RED : FORM_BLACK,
+                  underline: !!style.underline,
+                  bold: !!style.bold,
+                });
+              }
+            } else if (child.nodeType === Node.ELEMENT_NODE) {
+              walk(child, {
+                red: style.red || child.classList.contains("red"),
+                underline:
+                  style.underline || child.classList.contains("underline"),
+                bold: style.bold || child.classList.contains("bold"),
+              });
+            }
+          });
+        }
+
+        li.childNodes.forEach((node) => {
+          if (node.nodeType !== Node.ELEMENT_NODE) return;
+          const el = node;
+          if (el.classList.contains("item-label")) {
+            walk(el, {
+              red: el.classList.contains("red"),
+              underline: el.classList.contains("underline"),
+              bold: el.classList.contains("bold"),
+            });
+          } else if (el.classList.contains("cb-group")) {
+            const cb = el.querySelector('input[type="checkbox"]');
+            const checked = !!(cb && cb.checked);
+            segments.push({
+              text: checked ? "☑" : "☐",
+              color: checked ? FORM_INK : "#666",
+              bold: checked,
+              big: true,
+            });
+            segments.push({ text: " ", color: FORM_BLACK });
+            const lbl = el.querySelector("label");
+            if (lbl) {
+              walk(lbl, {
+                red: lbl.classList.contains("red"),
+                underline: lbl.classList.contains("underline"),
+              });
+            }
+            segments.push({ text: "  ", color: FORM_BLACK });
+          } else if (el.classList.contains("date-picker-trigger")) {
+            const t = el.textContent.trim();
+            if (t) segments.push({ text: t, color: FORM_INK });
+          } else if (el.tagName === "INPUT" && el.type === "text") {
+            if (el.value.trim())
+              segments.push({ text: el.value, color: FORM_INK });
+          }
+        });
+
+        return segments;
+      }
+
+      function tokenizeText(text) {
+        const tokens = [];
+        let buf = "";
+        const isAsciiish = (ch) => /[A-Za-z0-9\/.\-:：%()（）+]/.test(ch);
+        for (const ch of text) {
+          if (ch.trim() === "") {
+            if (buf) {
+              tokens.push(buf);
+              buf = "";
+            }
+            tokens.push(" ");
+          } else if (isAsciiish(ch)) {
+            buf += ch;
+          } else {
+            if (buf) {
+              tokens.push(buf);
+              buf = "";
+            }
+            tokens.push(ch);
+          }
+        }
+        if (buf) tokens.push(buf);
+        return tokens;
+      }
+
+      function generateFormImage(btn) {
+        const panel = btn.closest(".form-panel");
+        const formCard = panel.querySelector(".form-card");
+        const title = formCard.querySelector(".form-title").textContent.trim();
+        const items = formCard.querySelectorAll(".form-list > li");
+
+        const scale = 3;
+        const cssWidth = 380;
+        const marginX = 22;
+        const marginRight = 18;
+        const indentWidth = 26;
+        const lineHeight = 24;
+        const fontSize = 15;
+        const bigFontSize = fontSize + 4;
+        const titleFontSize = 18;
+        const topMargin = 40;
+
+        const contentX = marginX + indentWidth;
+        const contentWidth = cssWidth - contentX - marginRight;
+
+        const meas = document.createElement("canvas");
+        const mctx = meas.getContext("2d");
+        const fontStr = (bold, big) =>
+          `${bold ? "bold " : ""}${big ? bigFontSize : fontSize}px ${FORM_FONT_STACK}`;
+
+        const renderedItems = [];
+        items.forEach((li) => {
+          const segments = collectLiSegments(li);
+          const chunks = [];
+          segments.forEach((seg) => {
+            tokenizeText(seg.text).forEach((tok) => {
+              chunks.push({
+                text: tok,
+                color: seg.color,
+                underline: !!seg.underline,
+                bold: !!seg.bold,
+                big: !!seg.big,
+              });
+            });
+          });
+
+          const lines = [];
+          let curLine = [];
+          let curX = 0;
+          chunks.forEach((chunk) => {
+            mctx.font = fontStr(chunk.bold, chunk.big);
+            const w = mctx.measureText(chunk.text).width;
+            if (chunk.text === " " && curLine.length === 0) return;
+            if (
+              chunk.text !== " " &&
+              curX + w > contentWidth &&
+              curLine.length > 0
+            ) {
+              lines.push(curLine);
+              curLine = [];
+              curX = 0;
+            }
+            curLine.push({
+              text: chunk.text,
+              w,
+              color: chunk.color,
+              underline: chunk.underline,
+              bold: chunk.bold,
+              big: chunk.big,
+            });
+            curX += w;
+          });
+          if (curLine.length) lines.push(curLine);
+          if (!lines.length) lines.push([]);
+          renderedItems.push({ lines });
+        });
+
+        let totalLines = 0;
+        renderedItems.forEach(
+          (it) => (totalLines += Math.max(1, it.lines.length)),
+        );
+        const contentHeight = Math.ceil(
+          topMargin + titleFontSize + 26 + totalLines * lineHeight + 30,
+        );
+
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.ceil(cssWidth * scale);
+        canvas.height = Math.ceil(contentHeight * scale);
+        const ctx = canvas.getContext("2d");
+        ctx.scale(scale, scale);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, cssWidth, contentHeight);
+        ctx.textBaseline = "alphabetic";
+
+        ctx.fillStyle = "#000";
+        ctx.font = `bold ${titleFontSize}px ${FORM_FONT_STACK}`;
+        ctx.textAlign = "center";
+        ctx.fillText(title, cssWidth / 2, topMargin);
+        ctx.textAlign = "left";
+
+        let y = topMargin + titleFontSize + 26;
+        renderedItems.forEach((item, idx) => {
+          ctx.font = fontStr(false, false);
+          ctx.fillStyle = FORM_BLACK;
+          ctx.fillText(idx + 1 + ".", marginX, y);
+          item.lines.forEach((line) => {
+            let x = contentX;
+            line.forEach((tok) => {
+              ctx.font = fontStr(tok.bold, tok.big);
+              ctx.fillStyle = tok.color;
+              ctx.fillText(tok.text, x, y);
+              if (tok.underline) {
+                ctx.strokeStyle = tok.color;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(x, y + 3);
+                ctx.lineTo(x + tok.w, y + 3);
+                ctx.stroke();
+              }
+              x += tok.w;
+            });
+            y += lineHeight;
+          });
+        });
+
+        _outputCanvas = canvas;
+        document.getElementById("output-modal-src").src =
+          canvas.toDataURL("image/png");
+        document.getElementById("output-modal").classList.add("open");
+      }
+
+      function downloadGeneratedImage() {
+        if (!_outputCanvas) return;
+        _outputCanvas.toBlob((blob) => {
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          const title =
+            document
+              .querySelector(".form-panel.active .form-title")
+              ?.textContent?.trim() || "輸出圖片";
+          a.download = title + ".png";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, "image/png");
+      }
+
+      function copyGeneratedImage() {
+        if (!_outputCanvas) return;
+        if (!navigator.clipboard || !window.ClipboardItem) {
+          alert("此瀏覽器不支援複製圖片，請改用下載圖片。");
+          return;
+        }
+        _outputCanvas.toBlob((blob) => {
+          navigator.clipboard
+            .write([new ClipboardItem({ "image/png": blob })])
+            .then(() => showToast("圖片已複製！"))
+            .catch(() => alert("複製圖片失敗，請改用下載圖片。"));
+        }, "image/png");
+      }
+
+      function closeOutputModal() {
+        document.getElementById("output-modal").classList.remove("open");
+        document.getElementById("output-modal-src").src = "";
       }
 
       function openImgModal(src) {
@@ -1738,6 +2241,7 @@
         { name: "管路漏水故障", date: "2026-05-25" },
         { name: "工作閥故障", date: "2026-05-29" },
         { name: "中正樓拆終端箱", date: "2026-06-17" },
+        { name: "全院空調噪音", date: "2026-06-22" },
       ];
       document.addEventListener("DOMContentLoaded", function () {
         const today = new Date();
@@ -1768,6 +2272,7 @@
           "form-4",
           "form-5",
           "form-6",
+          "form-7",
         ].forEach(loadFormState);
 
         document.querySelectorAll(".form-card").forEach((card) => {
@@ -1817,6 +2322,18 @@
     </div>
     <div id="img-modal" onclick="closeImgModal()">
       <img id="img-modal-src" src="" alt="原圖" />
+    </div>
+    <div id="output-modal">
+      <img id="output-modal-src" src="" alt="輸出圖片" />
+      <div class="output-actions">
+        <button id="output-download-btn" onclick="downloadGeneratedImage()">
+          下載圖片
+        </button>
+        <button id="output-copy-btn" onclick="copyGeneratedImage()">
+          複製圖片
+        </button>
+        <button id="output-close-btn" onclick="closeOutputModal()">關閉</button>
+      </div>
     </div>
     <div id="toast">已複製！</div>
   </body>
