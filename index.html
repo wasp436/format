@@ -9,605 +9,22 @@
       http-equiv="Permissions-Policy"
       content="geolocation=(), microphone=(), camera=()"
     />
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        font-family:
-          "微軟正黑體", "Microsoft JhengHei", "蘋方-繁", "PingFang TC",
-          sans-serif;
-        background: #f0f0f0;
-        min-height: 100vh;
-      }
-
-      /* 分頁導覽 */
-      .tabs {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
-        padding: 16px 16px 0;
-        background: #2c3e50;
-      }
-
-      .tab-btn {
-        padding: 10px 14px;
-        border: none;
-        border-radius: 6px 6px 0 0;
-        background: #4a6278;
-        color: #ccc;
-        cursor: pointer;
-        font-size: 13px;
-        font-family: inherit;
-        transition:
-          background 0.2s,
-          color 0.2s;
-        white-space: nowrap;
-      }
-
-      .tab-btn:hover {
-        background: #607d8b;
-        color: #fff;
-      }
-      .tab-btn.active {
-        background: #fff;
-        color: #2c3e50;
-        font-weight: bold;
-      }
-
-      /* 主內容區 */
-      .content {
-        padding: 24px 16px;
-        max-width: 860px;
-        margin: 0 auto;
-      }
-
-      .form-panel {
-        display: none;
-      }
-      .form-panel.active {
-        display: block;
-      }
-
-      /* 表單卡片 */
-      .form-card {
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        padding: 32px 40px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      }
-
-      /* 標題列 */
-      .form-header {
-        text-align: center;
-        margin-bottom: 28px;
-      }
-
-      .form-title {
-        font-size: 20px;
-        font-weight: bold;
-        letter-spacing: 2px;
-        display: inline;
-      }
-
-      .view-img-link {
-        display: inline-block;
-        margin-left: 12px;
-        font-size: 12px;
-        color: #1976d2;
-        text-decoration: none;
-        background: none;
-        border: 1px solid #1976d2;
-        border-radius: 4px;
-        padding: 2px 8px;
-        vertical-align: middle;
-        cursor: pointer;
-        font-family: inherit;
-      }
-
-      .view-img-link:hover {
-        background: #e3f2fd;
-      }
-
-      #img-modal {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.85);
-        z-index: 10000;
-        align-items: center;
-        justify-content: center;
-        cursor: zoom-out;
-      }
-      #img-modal.open {
-        display: flex;
-      }
-      #img-modal img {
-        max-width: 92vw;
-        max-height: 92vh;
-        border-radius: 4px;
-        pointer-events: none;
-      }
-
-      .gen-btn {
-        padding: 10px 12px;
-        background: #fff;
-        color: #2e7d32;
-        border: 2px solid #2e7d32;
-        border-radius: 6px;
-        font-size: 14px;
-        font-family: inherit;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-      .gen-btn:hover {
-        background: #e8f5e9;
-      }
-      .gen-btn:active {
-        background: #c8e6c9;
-      }
-
-      #output-modal {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.85);
-        z-index: 10001;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 16px;
-        padding: 20px;
-      }
-      #output-modal.open {
-        display: flex;
-      }
-      #output-modal img {
-        max-width: 92vw;
-        max-height: 76vh;
-        border-radius: 4px;
-        background: #fff;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-      }
-      .output-actions {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .output-actions button {
-        padding: 10px 16px;
-        border-radius: 6px;
-        border: none;
-        font-size: 14px;
-        font-family: inherit;
-        cursor: pointer;
-      }
-      #output-download-btn {
-        background: #1976d2;
-        color: #fff;
-      }
-      #output-copy-btn {
-        background: #2e7d32;
-        color: #fff;
-      }
-      #output-close-btn {
-        background: #666;
-        color: #fff;
-      }
-
-      /* 項目列表 */
-      .form-list {
-        list-style: none;
-        counter-reset: item;
-      }
-
-      .form-list li {
-        counter-increment: item;
-        display: flex;
-        align-items: baseline;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-bottom: 14px;
-        font-size: 15px;
-        line-height: 1.8;
-        padding-left: 28px;
-      }
-
-      .item-num {
-        min-width: 28px;
-        font-weight: normal;
-        color: #333;
-        flex-shrink: 0;
-      }
-
-      .form-list li::before {
-        content: counter(item) ".";
-        min-width: 28px;
-        flex-shrink: 0;
-        color: #333;
-        margin-left: -28px;
-      }
-
-      .item-label {
-        flex-shrink: 0;
-        white-space: nowrap;
-      }
-
-      label.item-label,
-      .form-list li > .item-label:only-child {
-        white-space: normal;
-        flex-shrink: 1;
-      }
-
-      .red {
-        color: #d32f2f;
-      }
-      .underline {
-        text-decoration: underline;
-      }
-      .bold {
-        font-weight: bold;
-      }
-
-      /* 文字輸入框 */
-      input[type="text"] {
-        border: none;
-        border-bottom: 1.5px solid #555;
-        outline: none;
-        font-size: 15px;
-        font-family: inherit;
-        padding: 0 4px 1px;
-        min-width: 160px;
-        background: transparent;
-        color: #222;
-      }
-
-      input[type="text"].short {
-        min-width: 80px;
-      }
-      input[type="text"].medium {
-        min-width: 120px;
-      }
-      input[type="text"].long {
-        min-width: 220px;
-      }
-
-      input[type="text"]:focus {
-        border-bottom-color: #1976d2;
-      }
-
-      /* 勾選框 */
-      .cb-group {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        margin: 0 6px;
-      }
-
-      input[type="checkbox"] {
-        width: 16px;
-        height: 16px;
-        cursor: pointer;
-        accent-color: #2c3e50;
-        flex-shrink: 0;
-      }
-
-      .cb-label {
-        white-space: nowrap;
-      }
-
-      /* 子說明 */
-      .sub-note {
-        font-size: 13px;
-        color: #666;
-        margin-left: 4px;
-      }
-
-      /* 匯出按鈕區 */
-      .export-bar {
-        margin-top: 28px;
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-      }
-
-      .copy-btn {
-        padding: 10px 12px;
-        background: #fff;
-        color: #2c3e50;
-        border: 2px solid #2c3e50;
-        border-radius: 6px;
-        font-size: 14px;
-        font-family: inherit;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-      .copy-btn:hover {
-        background: #f0f0f0;
-      }
-      .copy-btn:active {
-        background: #d0d0d0;
-      }
-
-      .paste-btn {
-        padding: 10px 12px;
-        background: #fff;
-        color: #1976d2;
-        border: 2px solid #1976d2;
-        border-radius: 6px;
-        font-size: 14px;
-        font-family: inherit;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-      .paste-btn:hover {
-        background: #e3f2fd;
-      }
-      .paste-btn:active {
-        background: #bbdefb;
-      }
-
-      .clear-btn {
-        padding: 10px 12px;
-        background: #fff;
-        color: #c62828;
-        border: 2px solid #c62828;
-        border-radius: 6px;
-        font-size: 14px;
-        font-family: inherit;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-      .clear-btn:hover {
-        background: #ffebee;
-      }
-      .clear-btn:active {
-        background: #ffcdd2;
-      }
-
-      @media (max-width: 600px) {
-        .form-card {
-          padding: 20px 16px;
-        }
-
-        input[type="text"],
-        input[type="text"].short,
-        input[type="text"].medium,
-        input[type="text"].long {
-          flex: 1;
-          min-width: 60px;
-        }
-      }
-      /* 日期選擇器觸發器 */
-      .date-picker-trigger {
-        flex: 1;
-        min-width: 60px;
-        min-height: 1.5em;
-        border-bottom: 1.5px solid #555;
-        font-size: 15px;
-        font-family: inherit;
-        padding: 0 4px 1px;
-        color: #222;
-        cursor: pointer;
-      }
-
-      /* 遮罩 */
-      .picker-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.45);
-        z-index: 9999;
-        align-items: flex-end;
-      }
-      .picker-overlay.open {
-        display: flex;
-      }
-
-      /* 底部彈出面板 */
-      .picker-modal {
-        width: 100%;
-        background: #fff;
-        border-radius: 12px 12px 0 0;
-        overflow: hidden;
-      }
-
-      /* 工具列 */
-      .picker-toolbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 20px;
-        border-bottom: 1px solid #eee;
-        font-size: 15px;
-      }
-      .picker-toolbar button {
-        background: none;
-        border: none;
-        font-size: 16px;
-        font-family: inherit;
-        cursor: pointer;
-        padding: 4px 8px;
-      }
-      .picker-cancel-btn {
-        color: #888;
-      }
-      .picker-confirm-btn {
-        color: #1976d2;
-        font-weight: bold;
-      }
-
-      /* 欄位容器 */
-      .picker-body {
-        display: flex;
-        height: 200px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      /* 中央高亮 */
-      .picker-highlight {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        height: 40px;
-        background: rgba(0, 0, 0, 0.06);
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      /* 上下淡出 */
-      .picker-body::before,
-      .picker-body::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        height: 80px;
-        z-index: 2;
-        pointer-events: none;
-      }
-      .picker-body::before {
-        top: 0;
-        background: linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.92),
-          transparent
-        );
-      }
-      .picker-body::after {
-        bottom: 0;
-        background: linear-gradient(
-          to top,
-          rgba(255, 255, 255, 0.92),
-          transparent
-        );
-      }
-
-      /* 滾動欄 */
-      .picker-col {
-        flex: 1;
-        overflow-y: scroll;
-        scroll-snap-type: y mandatory;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior: contain;
-      }
-      .picker-col::-webkit-scrollbar {
-        display: none;
-      }
-
-      /* 選項 */
-      .picker-item {
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        scroll-snap-align: center;
-        color: #333;
-        user-select: none;
-      }
-      .picker-pad {
-        height: 40px;
-      }
-
-      #toast {
-        position: fixed;
-        bottom: 80px;
-        left: 50%;
-        transform: translateX(-50%) translateY(20px);
-        background: rgba(0, 0, 0, 0.75);
-        color: #fff;
-        padding: 10px 24px;
-        border-radius: 24px;
-        font-size: 15px;
-        opacity: 0;
-        pointer-events: none;
-        transition:
-          opacity 0.25s,
-          transform 0.25s;
-        white-space: nowrap;
-      }
-      #toast.show {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
-
-      #schedule-modal {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.45);
-        z-index: 9998;
-        align-items: center;
-        justify-content: center;
-      }
-      #schedule-modal.open {
-        display: flex;
-      }
-      #schedule-box {
-        background: #fff;
-        border-radius: 12px;
-        padding: 28px 32px;
-        min-width: 320px;
-        max-width: 90vw;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
-      }
-      #schedule-box h2 {
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 16px;
-        color: #2c3e50;
-      }
-      #schedule-box ul {
-        list-style: none;
-        margin-bottom: 20px;
-        line-height: 2;
-        font-size: 15px;
-      }
-      .schedule-green {
-        color: #2e7d32;
-      }
-      .schedule-red {
-        color: #d32f2f;
-      }
-      #schedule-close {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        background: #2c3e50;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        font-size: 15px;
-        font-family: inherit;
-        cursor: pointer;
-      }
-      #schedule-close:hover {
-        background: #1a252f;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
     <!-- 分頁按鈕 -->
     <div class="tabs">
-      <button class="tab-btn active" onclick="showTab(0)">
+      <button class="tab-btn active" data-tab="0">
         全院終端箱拆除
       </button>
-      <button class="tab-btn" onclick="showTab(1)">全院小型送風機需汰換</button>
-      <button class="tab-btn" onclick="showTab(2)">全院保溫失效</button>
-      <button class="tab-btn" onclick="showTab(3)">全院變頻器故障</button>
-      <button class="tab-btn" onclick="showTab(4)">全院管路漏水故障</button>
-      <button class="tab-btn" onclick="showTab(5)">全院工作閥故障</button>
-      <button class="tab-btn" onclick="showTab(6)">中正樓 拆終端箱</button>
-      <button class="tab-btn" onclick="showTab(7)">全院空調噪音</button>
+      <button class="tab-btn" data-tab="1">全院小型送風機需汰換</button>
+      <button class="tab-btn" data-tab="2">全院保溫失效</button>
+      <button class="tab-btn" data-tab="3">全院變頻器故障</button>
+      <button class="tab-btn" data-tab="4">全院管路漏水故障</button>
+      <button class="tab-btn" data-tab="5">全院工作閥故障</button>
+      <button class="tab-btn" data-tab="6">中正樓 拆終端箱</button>
+      <button class="tab-btn" data-tab="7">全院空調噪音</button>
     </div>
 
     <div class="content">
@@ -616,20 +33,14 @@
         <div class="form-card" id="form-0">
           <div class="form-header">
             <span class="form-title">全院終端箱拆除回報項目</span>
-            <button
-              class="view-img-link"
-              onclick="openImgModal('1780366927777.png')"
-            >
+            <button class="view-img-link" data-img="1780366927777.png">
               查看原圖
             </button>
           </div>
           <ol class="form-list">
             <li>
               <span class="item-label">發生日期：</span>
-              <div
-                class="date-picker-trigger"
-                onclick="openDatePicker(this)"
-              ></div>
+              <div class="date-picker-trigger"></div>
             </li>
             <li>
               <span class="item-label">發生地點：</span>
@@ -723,17 +134,14 @@
         <div class="export-bar">
           <button
             class="copy-btn"
-            onclick="copyText('form-0', '全院終端箱拆除回報')"
+            data-copy-form="form-0"
+            data-copy-title="全院終端箱拆除回報"
           >
             複製文字
           </button>
-          <button class="paste-btn" onclick="pasteFromClipboard()">
-            貼回表單
-          </button>
-          <button class="clear-btn" onclick="clearForm()">清空表單</button>
-          <button class="gen-btn" onclick="generateFormImage(this)">
-            輸出圖片
-          </button>
+          <button class="paste-btn">貼回表單</button>
+          <button class="clear-btn">清空表單</button>
+          <button class="gen-btn">輸出圖片</button>
         </div>
       </div>
 
@@ -742,20 +150,14 @@
         <div class="form-card" id="form-1">
           <div class="form-header">
             <span class="form-title">全院小型送風機需汰換回報項目</span>
-            <button
-              class="view-img-link"
-              onclick="openImgModal('1781693431187.jpg')"
-            >
+            <button class="view-img-link" data-img="1786338232959.png">
               查看原圖
             </button>
           </div>
           <ol class="form-list">
             <li>
               <span class="item-label">發生日期：</span>
-              <div
-                class="date-picker-trigger"
-                onclick="openDatePicker(this)"
-              ></div>
+              <div class="date-picker-trigger"></div>
             </li>
             <li>
               <span class="item-label">發生地點：</span>
@@ -766,10 +168,22 @@
               <input type="text" class="long" placeholder="" />
             </li>
             <li>
-              <span class="item-label red">F/C 型號：</span>
-              <input type="text" class="medium" placeholder="" />
+              <span class="item-label red"
+                >機器所在位置是否有空間<span class="underline">汰換</span
+                >：</span
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f2-space-yes" />
+                <label class="cb-label red" for="f2-space-yes">是</label>
+              </span>
+              <span class="cb-group">
+                <input type="checkbox" id="f2-space-no" />
+                <label class="cb-label red" for="f2-space-no">否</label>
+              </span>
             </li>
             <li>
+              <span class="item-label red">F/C 型號：</span>
+              <input type="text" class="medium" placeholder="" />
               <span class="item-label red">F/C 電壓：</span>
               <input type="text" class="medium" placeholder="" />
             </li>
@@ -794,7 +208,7 @@
               </span>
             </li>
             <li>
-              <span class="item-label">F/C 箱體位於</span>
+              <span class="item-label">F/C 箱體位於：</span>
               <span class="cb-group">
                 <input type="checkbox" id="f2-room" />
                 <label class="cb-label" for="f2-room">病房</label>
@@ -806,10 +220,10 @@
             </li>
             <li>
               <label class="item-label" for="f2-repair"
-                >通知<span class="underline">單位</span>打<span
+                >已通知<span class="underline">單位</span>打<span
                   class="underline"
                   >請修</span
-                >單</label
+                >單：</label
               >
               <span class="cb-group">
                 <input type="checkbox" id="f2-repair" />
@@ -886,7 +300,9 @@
               </span>
             </li>
             <li>
-              <label class="item-label red" for="f2-motor">馬達是否故障</label>
+              <label class="item-label red" for="f2-motor"
+                >馬達是否故障：</label
+              >
               <span class="cb-group">
                 <input type="checkbox" id="f2-motor" />
               </span>
@@ -894,8 +310,6 @@
             <li>
               <span class="item-label">出風口數量：</span>
               <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
               <span class="item-label">回風口數量：</span>
               <input type="text" class="short" placeholder="" />
             </li>
@@ -904,16 +318,12 @@
                 >使用<span class="underline">合梯幾尺</span>：</span
               >
               <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
               <span class="item-label">單位可施工時間：</span>
               <input type="text" class="medium" placeholder="" />
             </li>
             <li>
               <span class="item-label">來電人員：</span>
               <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
               <span class="item-label">聯絡電話：</span>
               <input type="text" class="medium" placeholder="" />
             </li>
@@ -926,17 +336,14 @@
         <div class="export-bar">
           <button
             class="copy-btn"
-            onclick="copyText('form-1', '全院小型送風機需汰換回報')"
+            data-copy-form="form-1"
+            data-copy-title="全院小型送風機需汰換回報"
           >
             複製文字
           </button>
-          <button class="paste-btn" onclick="pasteFromClipboard()">
-            貼回表單
-          </button>
-          <button class="clear-btn" onclick="clearForm()">清空表單</button>
-          <button class="gen-btn" onclick="generateFormImage(this)">
-            輸出圖片
-          </button>
+          <button class="paste-btn">貼回表單</button>
+          <button class="clear-btn">清空表單</button>
+          <button class="gen-btn">輸出圖片</button>
         </div>
       </div>
 
@@ -945,20 +352,14 @@
         <div class="form-card" id="form-2">
           <div class="form-header">
             <span class="form-title">全院保溫失效回報項目</span>
-            <button
-              class="view-img-link"
-              onclick="openImgModal('1779778627168.png')"
-            >
+            <button class="view-img-link" data-img="1779778627168.png">
               查看原圖
             </button>
           </div>
           <ol class="form-list">
             <li>
               <span class="item-label">發生日期：</span>
-              <div
-                class="date-picker-trigger"
-                onclick="openDatePicker(this)"
-              ></div>
+              <div class="date-picker-trigger"></div>
             </li>
             <li>
               <span class="item-label">發生地點：</span>
@@ -1058,17 +459,14 @@
         <div class="export-bar">
           <button
             class="copy-btn"
-            onclick="copyText('form-2', '全院保溫失效回報')"
+            data-copy-form="form-2"
+            data-copy-title="全院保溫失效回報"
           >
             複製文字
           </button>
-          <button class="paste-btn" onclick="pasteFromClipboard()">
-            貼回表單
-          </button>
-          <button class="clear-btn" onclick="clearForm()">清空表單</button>
-          <button class="gen-btn" onclick="generateFormImage(this)">
-            輸出圖片
-          </button>
+          <button class="paste-btn">貼回表單</button>
+          <button class="clear-btn">清空表單</button>
+          <button class="gen-btn">輸出圖片</button>
         </div>
       </div>
 
@@ -1077,10 +475,7 @@
         <div class="form-card" id="form-3">
           <div class="form-header">
             <span class="form-title">全院變頻器故障回報項目</span>
-            <button
-              class="view-img-link"
-              onclick="openImgModal('1776819933487.jpg')"
-            >
+            <button class="view-img-link" data-img="1776819933487.jpg">
               查看原圖
             </button>
           </div>
@@ -1150,17 +545,14 @@
         <div class="export-bar">
           <button
             class="copy-btn"
-            onclick="copyText('form-3', '全院變頻器故障回報')"
+            data-copy-form="form-3"
+            data-copy-title="全院變頻器故障回報"
           >
             複製文字
           </button>
-          <button class="paste-btn" onclick="pasteFromClipboard()">
-            貼回表單
-          </button>
-          <button class="clear-btn" onclick="clearForm()">清空表單</button>
-          <button class="gen-btn" onclick="generateFormImage(this)">
-            輸出圖片
-          </button>
+          <button class="paste-btn">貼回表單</button>
+          <button class="clear-btn">清空表單</button>
+          <button class="gen-btn">輸出圖片</button>
         </div>
       </div>
 
@@ -1169,10 +561,7 @@
         <div class="form-card" id="form-4">
           <div class="form-header">
             <span class="form-title red">全院管路漏水故障回報項目</span>
-            <button
-              class="view-img-link"
-              onclick="openImgModal('1778631115360.png')"
-            >
+            <button class="view-img-link" data-img="1778631115360.png">
               查看原圖
             </button>
           </div>
@@ -1185,7 +574,7 @@
               <span class="item-label">設備編號：</span>
               <input type="text" class="medium" placeholder="" />
             </li>
-            <li style="flex-wrap: wrap; gap: 4px">
+            <li class="li-tight">
               <span class="item-label">確認管路性質：</span>
               <span class="cb-group">
                 <input type="checkbox" id="f5-icein" />
@@ -1260,17 +649,14 @@
         <div class="export-bar">
           <button
             class="copy-btn"
-            onclick="copyText('form-4', '全院管路漏水故障回報')"
+            data-copy-form="form-4"
+            data-copy-title="全院管路漏水故障回報"
           >
             複製文字
           </button>
-          <button class="paste-btn" onclick="pasteFromClipboard()">
-            貼回表單
-          </button>
-          <button class="clear-btn" onclick="clearForm()">清空表單</button>
-          <button class="gen-btn" onclick="generateFormImage(this)">
-            輸出圖片
-          </button>
+          <button class="paste-btn">貼回表單</button>
+          <button class="clear-btn">清空表單</button>
+          <button class="gen-btn">輸出圖片</button>
         </div>
       </div>
       <!-- ===== 表單 6：全院工作閥故障回報項目 ===== -->
@@ -1278,10 +664,7 @@
         <div class="form-card" id="form-5">
           <div class="form-header">
             <span class="form-title red">全院工作閥故障回報項目</span>
-            <button
-              class="view-img-link"
-              onclick="openImgModal('1780052426012.png')"
-            >
+            <button class="view-img-link" data-img="1780052426012.png">
               查看原圖
             </button>
           </div>
@@ -1334,17 +717,14 @@
         <div class="export-bar">
           <button
             class="copy-btn"
-            onclick="copyText('form-5', '全院工作閥故障回報')"
+            data-copy-form="form-5"
+            data-copy-title="全院工作閥故障回報"
           >
             複製文字
           </button>
-          <button class="paste-btn" onclick="pasteFromClipboard()">
-            貼回表單
-          </button>
-          <button class="clear-btn" onclick="clearForm()">清空表單</button>
-          <button class="gen-btn" onclick="generateFormImage(this)">
-            輸出圖片
-          </button>
+          <button class="paste-btn">貼回表單</button>
+          <button class="clear-btn">清空表單</button>
+          <button class="gen-btn">輸出圖片</button>
         </div>
       </div>
 
@@ -1353,20 +733,14 @@
         <div class="form-card" id="form-6">
           <div class="form-header">
             <span class="form-title">中正樓 拆終端箱回報項目</span>
-            <button
-              class="view-img-link"
-              onclick="openImgModal('1781688550960.png')"
-            >
+            <button class="view-img-link" data-img="1781688550960.png">
               查看原圖
             </button>
           </div>
           <ol class="form-list">
             <li>
               <span class="item-label">發生日期：</span>
-              <div
-                class="date-picker-trigger"
-                onclick="openDatePicker(this)"
-              ></div>
+              <div class="date-picker-trigger"></div>
             </li>
             <li>
               <span class="item-label">發生地點：</span>
@@ -1465,17 +839,14 @@
         <div class="export-bar">
           <button
             class="copy-btn"
-            onclick="copyText('form-6', '中正樓拆終端箱回報')"
+            data-copy-form="form-6"
+            data-copy-title="中正樓拆終端箱回報"
           >
             複製文字
           </button>
-          <button class="paste-btn" onclick="pasteFromClipboard()">
-            貼回表單
-          </button>
-          <button class="clear-btn" onclick="clearForm()">清空表單</button>
-          <button class="gen-btn" onclick="generateFormImage(this)">
-            輸出圖片
-          </button>
+          <button class="paste-btn">貼回表單</button>
+          <button class="clear-btn">清空表單</button>
+          <button class="gen-btn">輸出圖片</button>
         </div>
       </div>
 
@@ -1484,20 +855,14 @@
         <div class="form-card" id="form-7">
           <div class="form-header">
             <span class="form-title">全院空調噪音回報項目</span>
-            <button
-              class="view-img-link"
-              onclick="openImgModal('1782097276019.png')"
-            >
+            <button class="view-img-link" data-img="1782097276019.png">
               查看原圖
             </button>
           </div>
           <ol class="form-list">
             <li>
               <span class="item-label">日期：</span>
-              <div
-                class="date-picker-trigger"
-                onclick="openDatePicker(this)"
-              ></div>
+              <div class="date-picker-trigger"></div>
             </li>
             <li>
               <span class="item-label">時間：</span>
@@ -1614,689 +979,27 @@
         <div class="export-bar">
           <button
             class="copy-btn"
-            onclick="copyText('form-7', '全院空調噪音回報')"
+            data-copy-form="form-7"
+            data-copy-title="全院空調噪音回報"
           >
             複製文字
           </button>
-          <button class="paste-btn" onclick="pasteFromClipboard()">
-            貼回表單
-          </button>
-          <button class="clear-btn" onclick="clearForm()">清空表單</button>
-          <button class="gen-btn" onclick="generateFormImage(this)">
-            輸出圖片
-          </button>
+          <button class="paste-btn">貼回表單</button>
+          <button class="clear-btn">清空表單</button>
+          <button class="gen-btn">輸出圖片</button>
         </div>
       </div>
     </div>
     <!-- /content -->
 
-    <script>
-      function addCJKSpacing(str) {
-        return str
-          .replace(/([一-龥])([A-Za-z0-9])/g, "$1 $2")
-          .replace(/([A-Za-z0-9])([一-龥])/g, "$1 $2");
-      }
-
-      function copyText(formId, title) {
-        const btn = event.currentTarget;
-        const formEl = document.getElementById(formId);
-        const formTitle =
-          formEl.querySelector(".form-title")?.textContent?.trim() || title;
-        const lines = [formTitle, ""];
-
-        formEl.querySelectorAll(".form-list li").forEach((li, idx) => {
-          let line = idx + 1 + ". ";
-
-          li.childNodes.forEach((node) => {
-            if (node.nodeType !== Node.ELEMENT_NODE) return;
-            const el = node;
-            if (el.classList.contains("item-label")) {
-              line += el.textContent.replace(/\s+/g, " ").trim();
-            } else if (el.classList.contains("cb-group")) {
-              const cb = el.querySelector('input[type="checkbox"]');
-              const lbl = el.querySelector("label")?.textContent?.trim() || "";
-              if (cb) line += (cb.checked ? "☑" : "☐") + lbl + " ";
-            } else if (el.classList.contains("date-picker-trigger")) {
-              line += el.textContent.trim();
-            } else if (el.tagName === "INPUT" && el.type === "text") {
-              line += el.value;
-            }
-          });
-
-          lines.push(addCJKSpacing(line.trimEnd()));
-        });
-
-        navigator.clipboard
-          .writeText(lines.join("\n"))
-          .then(() => showToast())
-          .catch(() => alert("複製失敗，請手動複製。"));
-      }
-
-      let _outputCanvas = null;
-
-      const FORM_RED = "#d32f2f";
-      const FORM_BLACK = "#222";
-      const FORM_INK = "#17318f";
-      const FORM_FONT_STACK =
-        '"微軟正黑體","Microsoft JhengHei","蘋方-繁","PingFang TC",sans-serif';
-
-      function collectLiSegments(li) {
-        const segments = [];
-
-        function walk(node, style) {
-          node.childNodes.forEach((child) => {
-            if (child.nodeType === Node.TEXT_NODE) {
-              const t = child.textContent.replace(/\s+/g, " ");
-              if (t.trim()) {
-                segments.push({
-                  text: t,
-                  color: style.red ? FORM_RED : FORM_BLACK,
-                  underline: !!style.underline,
-                  bold: !!style.bold,
-                });
-              }
-            } else if (child.nodeType === Node.ELEMENT_NODE) {
-              walk(child, {
-                red: style.red || child.classList.contains("red"),
-                underline:
-                  style.underline || child.classList.contains("underline"),
-                bold: style.bold || child.classList.contains("bold"),
-              });
-            }
-          });
-        }
-
-        li.childNodes.forEach((node) => {
-          if (node.nodeType !== Node.ELEMENT_NODE) return;
-          const el = node;
-          if (el.classList.contains("item-label")) {
-            walk(el, {
-              red: el.classList.contains("red"),
-              underline: el.classList.contains("underline"),
-              bold: el.classList.contains("bold"),
-            });
-          } else if (el.classList.contains("cb-group")) {
-            const cb = el.querySelector('input[type="checkbox"]');
-            const checked = !!(cb && cb.checked);
-            segments.push({
-              text: checked ? "☑" : "☐",
-              color: checked ? FORM_INK : "#666",
-              bold: checked,
-              big: true,
-            });
-            segments.push({ text: " ", color: FORM_BLACK });
-            const lbl = el.querySelector("label");
-            if (lbl) {
-              walk(lbl, {
-                red: lbl.classList.contains("red"),
-                underline: lbl.classList.contains("underline"),
-              });
-            }
-            segments.push({ text: "  ", color: FORM_BLACK });
-          } else if (el.classList.contains("date-picker-trigger")) {
-            const t = el.textContent.trim();
-            if (t) segments.push({ text: t, color: FORM_INK });
-          } else if (el.tagName === "INPUT" && el.type === "text") {
-            if (el.value.trim())
-              segments.push({ text: el.value, color: FORM_INK });
-          }
-        });
-
-        return segments;
-      }
-
-      function tokenizeText(text) {
-        const tokens = [];
-        let buf = "";
-        const isAsciiish = (ch) => /[A-Za-z0-9\/.\-:：%()（）+]/.test(ch);
-        for (const ch of text) {
-          if (ch.trim() === "") {
-            if (buf) {
-              tokens.push(buf);
-              buf = "";
-            }
-            tokens.push(" ");
-          } else if (isAsciiish(ch)) {
-            buf += ch;
-          } else {
-            if (buf) {
-              tokens.push(buf);
-              buf = "";
-            }
-            tokens.push(ch);
-          }
-        }
-        if (buf) tokens.push(buf);
-        return tokens;
-      }
-
-      function generateFormImage(btn) {
-        const panel = btn.closest(".form-panel");
-        const formCard = panel.querySelector(".form-card");
-        const title = formCard.querySelector(".form-title").textContent.trim();
-        const items = formCard.querySelectorAll(".form-list > li");
-
-        const scale = 3;
-        const cssWidth = 380;
-        const marginX = 22;
-        const marginRight = 18;
-        const indentWidth = 26;
-        const lineHeight = 24;
-        const fontSize = 15;
-        const bigFontSize = fontSize + 4;
-        const titleFontSize = 18;
-        const topMargin = 40;
-
-        const contentX = marginX + indentWidth;
-        const contentWidth = cssWidth - contentX - marginRight;
-
-        const meas = document.createElement("canvas");
-        const mctx = meas.getContext("2d");
-        const fontStr = (bold, big) =>
-          `${bold ? "bold " : ""}${big ? bigFontSize : fontSize}px ${FORM_FONT_STACK}`;
-
-        const renderedItems = [];
-        items.forEach((li) => {
-          const segments = collectLiSegments(li);
-          const chunks = [];
-          segments.forEach((seg) => {
-            tokenizeText(seg.text).forEach((tok) => {
-              chunks.push({
-                text: tok,
-                color: seg.color,
-                underline: !!seg.underline,
-                bold: !!seg.bold,
-                big: !!seg.big,
-              });
-            });
-          });
-
-          const lines = [];
-          let curLine = [];
-          let curX = 0;
-          chunks.forEach((chunk) => {
-            mctx.font = fontStr(chunk.bold, chunk.big);
-            const w = mctx.measureText(chunk.text).width;
-            if (chunk.text === " " && curLine.length === 0) return;
-            if (
-              chunk.text !== " " &&
-              curX + w > contentWidth &&
-              curLine.length > 0
-            ) {
-              lines.push(curLine);
-              curLine = [];
-              curX = 0;
-            }
-            curLine.push({
-              text: chunk.text,
-              w,
-              color: chunk.color,
-              underline: chunk.underline,
-              bold: chunk.bold,
-              big: chunk.big,
-            });
-            curX += w;
-          });
-          if (curLine.length) lines.push(curLine);
-          if (!lines.length) lines.push([]);
-          renderedItems.push({ lines });
-        });
-
-        let totalLines = 0;
-        renderedItems.forEach(
-          (it) => (totalLines += Math.max(1, it.lines.length)),
-        );
-        const contentHeight = Math.ceil(
-          topMargin + titleFontSize + 26 + totalLines * lineHeight + 30,
-        );
-
-        const canvas = document.createElement("canvas");
-        canvas.width = Math.ceil(cssWidth * scale);
-        canvas.height = Math.ceil(contentHeight * scale);
-        const ctx = canvas.getContext("2d");
-        ctx.scale(scale, scale);
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, cssWidth, contentHeight);
-        ctx.textBaseline = "alphabetic";
-
-        ctx.fillStyle = "#000";
-        ctx.font = `bold ${titleFontSize}px ${FORM_FONT_STACK}`;
-        ctx.textAlign = "center";
-        ctx.fillText(title, cssWidth / 2, topMargin);
-        ctx.textAlign = "left";
-
-        let y = topMargin + titleFontSize + 26;
-        renderedItems.forEach((item, idx) => {
-          ctx.font = fontStr(false, false);
-          ctx.fillStyle = FORM_BLACK;
-          ctx.fillText(idx + 1 + ".", marginX, y);
-          item.lines.forEach((line) => {
-            let x = contentX;
-            line.forEach((tok) => {
-              ctx.font = fontStr(tok.bold, tok.big);
-              ctx.fillStyle = tok.color;
-              ctx.fillText(tok.text, x, y);
-              if (tok.underline) {
-                ctx.strokeStyle = tok.color;
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(x, y + 3);
-                ctx.lineTo(x + tok.w, y + 3);
-                ctx.stroke();
-              }
-              x += tok.w;
-            });
-            y += lineHeight;
-          });
-        });
-
-        _outputCanvas = canvas;
-        document.getElementById("output-modal-src").src =
-          canvas.toDataURL("image/png");
-        document.getElementById("output-modal").classList.add("open");
-      }
-
-      function downloadGeneratedImage() {
-        if (!_outputCanvas) return;
-        _outputCanvas.toBlob((blob) => {
-          const a = document.createElement("a");
-          a.href = URL.createObjectURL(blob);
-          const title =
-            document
-              .querySelector(".form-panel.active .form-title")
-              ?.textContent?.trim() || "輸出圖片";
-          a.download = title + ".png";
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-        }, "image/png");
-      }
-
-      function copyGeneratedImage() {
-        if (!_outputCanvas) return;
-        if (!navigator.clipboard || !window.ClipboardItem) {
-          alert("此瀏覽器不支援複製圖片，請改用下載圖片。");
-          return;
-        }
-        _outputCanvas.toBlob((blob) => {
-          navigator.clipboard
-            .write([new ClipboardItem({ "image/png": blob })])
-            .then(() => showToast("圖片已複製！"))
-            .catch(() => alert("複製圖片失敗，請改用下載圖片。"));
-        }, "image/png");
-      }
-
-      function closeOutputModal() {
-        document.getElementById("output-modal").classList.remove("open");
-        document.getElementById("output-modal-src").src = "";
-      }
-
-      function openImgModal(src) {
-        document.getElementById("img-modal-src").src = src;
-        document.getElementById("img-modal").classList.add("open");
-      }
-
-      function closeImgModal() {
-        document.getElementById("img-modal").classList.remove("open");
-        document.getElementById("img-modal-src").src = "";
-      }
-
-      function showToast(msg) {
-        const t = document.getElementById("toast");
-        t.textContent = msg || "已複製！";
-        t.classList.add("show");
-        setTimeout(() => {
-          t.classList.remove("show");
-          t.textContent = "已複製！";
-        }, 1800);
-      }
-
-      function pasteFromClipboard() {
-        navigator.clipboard
-          .readText()
-          .then((text) => fillFormFromText(text))
-          .catch(() => alert("無法讀取剪貼簿，請確認瀏覽器已允許存取剪貼簿"));
-      }
-
-      function clearForm() {
-        const activePanel = document.querySelector(".form-panel.active");
-        if (!activePanel) return;
-        const formCard = activePanel.querySelector(".form-card");
-
-        formCard.querySelectorAll('input[type="text"]').forEach((input) => {
-          input.value = "";
-        });
-        formCard.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
-          cb.checked = false;
-        });
-
-        const today = new Date();
-        const y = today.getFullYear();
-        const m = today.getMonth() + 1;
-        const d = today.getDate();
-        const dateStr = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-        const label = `${y - 1911}.${m}.${d}`;
-        formCard.querySelectorAll(".date-picker-trigger").forEach((el) => {
-          el.dataset.date = dateStr;
-          el.textContent = label;
-        });
-
-        saveFormState(formCard.id);
-        showToast("已清空！");
-      }
-
-      function fillFormFromText(text) {
-        const activePanel = document.querySelector(".form-panel.active");
-        if (!activePanel) return;
-        const formCard = activePanel.querySelector(".form-card");
-        const lines = text
-          .trim()
-          .split("\n")
-          .filter((l) => /^\d+\./.test(l));
-        const listItems = formCard.querySelectorAll(".form-list li");
-
-        lines.forEach((line, idx) => {
-          if (idx >= listItems.length) return;
-          const li = listItems[idx];
-          let rest = line.replace(/^\d+\.\s*/, "");
-
-          const labelText =
-            li.querySelector(".item-label")?.textContent?.trim() || "";
-          if (rest.startsWith(labelText))
-            rest = rest.slice(labelText.length).trim();
-
-          li.querySelectorAll(".cb-group").forEach((group) => {
-            const cb = group.querySelector('input[type="checkbox"]');
-            const lbl = group.querySelector("label")?.textContent?.trim() || "";
-            if (!cb) return;
-            if (lbl) {
-              const escaped = lbl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-              const m = rest.match(new RegExp("[☑☐]" + escaped));
-              if (m) cb.checked = m[0][0] === "☑";
-            } else {
-              const m = rest.match(/[☑☐]/);
-              if (m) cb.checked = m[0] === "☑";
-            }
-          });
-
-          rest = rest.replace(/[☑☐]\S*/g, "").trim();
-
-          const trigger = li.querySelector(".date-picker-trigger");
-          if (trigger && /^\d{2,3}\.\d{1,2}\.\d{1,2}$/.test(rest)) {
-            const [rocY, m, d] = rest.split(".").map(Number);
-            const y = rocY + 1911;
-            trigger.dataset.date = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-            trigger.textContent = rest;
-            return;
-          }
-
-          const input = li.querySelector('input[type="text"]');
-          if (input) input.value = rest;
-        });
-
-        saveFormState(formCard.id);
-        showToast("已貼回！");
-      }
-
-      function showTab(index) {
-        document.querySelectorAll(".form-panel").forEach((p, i) => {
-          p.classList.toggle("active", i === index);
-        });
-        document.querySelectorAll(".tab-btn").forEach((b, i) => {
-          b.classList.toggle("active", i === index);
-        });
-      }
-
-      // ---- 日期選擇器 ----
-      const ITEM_H = 40;
-      let pickerTarget = null;
-      let yearArr = [],
-        monthArr = [],
-        dayArr = [];
-
-      function openDatePicker(el) {
-        pickerTarget = el;
-        const val = el.dataset.date;
-        const today = new Date();
-        let y = today.getFullYear(),
-          m = today.getMonth() + 1,
-          d = today.getDate();
-        if (val) {
-          const p = val.split("-").map(Number);
-          if (p.length === 3) {
-            y = p[0];
-            m = p[1];
-            d = p[2];
-          }
-        }
-        document.getElementById("date-picker-overlay").classList.add("open");
-        setTimeout(() => initPicker(y, m, d), 10);
-      }
-
-      function closeDatePicker(doConfirm) {
-        if (doConfirm && pickerTarget) {
-          const y = yearArr[getIdx("pcol-year")];
-          const m = monthArr[getIdx("pcol-month")];
-          const d = dayArr[getIdx("pcol-day")];
-          if (y != null && m != null && d != null) {
-            pickerTarget.dataset.date = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-            pickerTarget.textContent = `${y - 1911}.${m}.${d}`;
-            const card = pickerTarget.closest(".form-card");
-            if (card) saveFormState(card.id);
-          }
-        }
-        document.getElementById("date-picker-overlay").classList.remove("open");
-        pickerTarget = null;
-      }
-
-      function initPicker(y, m, d) {
-        const curY = new Date().getFullYear();
-        yearArr = [];
-        for (let yr = curY - 2; yr <= curY + 1; yr++) yearArr.push(yr);
-        monthArr = Array.from({ length: 12 }, (_, i) => i + 1);
-        const dMax = new Date(y, m, 0).getDate();
-        dayArr = Array.from({ length: dMax }, (_, i) => i + 1);
-
-        fillCol(
-          "pcol-year",
-          yearArr.map((v) => v - 1911 + "年"),
-          yearArr.indexOf(y),
-        );
-        fillCol(
-          "pcol-month",
-          monthArr.map((v) => v + "月"),
-          monthArr.indexOf(m),
-        );
-        fillCol(
-          "pcol-day",
-          dayArr.map((v) => v + "日"),
-          dayArr.indexOf(d),
-        );
-
-        const onYM = debounce(rebuildDays, 120);
-        document.getElementById("pcol-year").onscroll = onYM;
-        document.getElementById("pcol-month").onscroll = onYM;
-      }
-
-      function rebuildDays() {
-        const y = yearArr[getIdx("pcol-year")] || new Date().getFullYear();
-        const m = monthArr[getIdx("pcol-month")] || new Date().getMonth() + 1;
-        const oldD = dayArr[getIdx("pcol-day")] || 1;
-        const dMax = new Date(y, m, 0).getDate();
-        dayArr = Array.from({ length: dMax }, (_, i) => i + 1);
-        fillCol(
-          "pcol-day",
-          dayArr.map((v) => v + "日"),
-          Math.min(oldD, dMax) - 1,
-        );
-      }
-
-      function fillCol(id, labels, selIdx) {
-        const col = document.getElementById(id);
-        col.onscroll = null;
-        col.innerHTML = "";
-        for (let i = 0; i < 2; i++) col.appendChild(makePad());
-        labels.forEach((txt) => {
-          const div = document.createElement("div");
-          div.className = "picker-item";
-          div.textContent = txt;
-          col.appendChild(div);
-        });
-        for (let i = 0; i < 2; i++) col.appendChild(makePad());
-        col.scrollTop = Math.max(0, selIdx) * ITEM_H;
-      }
-
-      function makePad() {
-        const d = document.createElement("div");
-        d.className = "picker-pad";
-        return d;
-      }
-
-      function getIdx(id) {
-        const col = document.getElementById(id);
-        return Math.round(col.scrollTop / ITEM_H);
-      }
-
-      function debounce(fn, ms) {
-        let t;
-        return function () {
-          clearTimeout(t);
-          t = setTimeout(fn, ms);
-        };
-      }
-
-      (function setTodayOnLoad() {
-        const today = new Date();
-        const y = today.getFullYear();
-        const m = today.getMonth() + 1;
-        const d = today.getDate();
-        const dateStr = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-        const label = `${y - 1911}.${m}.${d}`;
-        document.querySelectorAll(".date-picker-trigger").forEach((el) => {
-          el.dataset.date = dateStr;
-          el.textContent = label;
-        });
-      })();
-
-      document
-        .querySelectorAll(".form-panel:not(#panel-4)")
-        .forEach((panel) => {
-          panel.addEventListener("change", (e) => {
-            if (e.target.type !== "checkbox" || !e.target.checked) return;
-            const li = e.target.closest("li");
-            if (!li) return;
-            li.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
-              if (cb !== e.target) cb.checked = false;
-            });
-          });
-        });
-
-      function saveFormState(formId) {
-        const card = document.getElementById(formId);
-        if (!card) return;
-        const state = { inputs: {}, checkboxes: {}, dates: {} };
-        card.querySelectorAll('input[type="text"]').forEach((el, i) => {
-          state.inputs[i] = el.value;
-        });
-        card.querySelectorAll('input[type="checkbox"]').forEach((el) => {
-          state.checkboxes[el.id] = el.checked;
-        });
-        card.querySelectorAll(".date-picker-trigger").forEach((el, i) => {
-          state.dates[i] = {
-            date: el.dataset.date || "",
-            text: el.textContent,
-          };
-        });
-        localStorage.setItem("form:" + formId, JSON.stringify(state));
-      }
-
-      function loadFormState(formId) {
-        const card = document.getElementById(formId);
-        if (!card) return;
-        const raw = localStorage.getItem("form:" + formId);
-        if (!raw) return;
-        try {
-          const state = JSON.parse(raw);
-          card.querySelectorAll('input[type="text"]').forEach((el, i) => {
-            if (state.inputs?.[i] != null) el.value = state.inputs[i];
-          });
-          card.querySelectorAll('input[type="checkbox"]').forEach((el) => {
-            if (state.checkboxes?.[el.id] != null)
-              el.checked = state.checkboxes[el.id];
-          });
-          card.querySelectorAll(".date-picker-trigger").forEach((el, i) => {
-            if (state.dates?.[i]?.text) {
-              if (state.dates[i].date) el.dataset.date = state.dates[i].date;
-              el.textContent = state.dates[i].text;
-            }
-          });
-        } catch {}
-      }
-
-      const _schedule = [
-        { name: "終端箱拆除", date: "2026-06-03" },
-        { name: "小型送風機需汰換", date: "2026-06-17" },
-        { name: "保溫失效", date: "2026-05-26" },
-        { name: "變頻器故障", date: "2026-04-22" },
-        { name: "管路漏水故障", date: "2026-05-25" },
-        { name: "工作閥故障", date: "2026-05-29" },
-        { name: "中正樓拆終端箱", date: "2026-06-17" },
-        { name: "全院空調噪音", date: "2026-06-22" },
-      ];
-      document.addEventListener("DOMContentLoaded", function () {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const ul = document.getElementById("schedule-list");
-        _schedule.forEach(({ name, date }) => {
-          const li = document.createElement("li");
-          if (!date) {
-            li.textContent = `${name}：不明(?天)前`;
-          } else {
-            const [y, m, d] = date.split("-").map(Number);
-            const rocDate = `${y - 1911}.${m}.${d}`;
-            const diff = Math.abs(
-              Math.round((today - new Date(date)) / 86400000),
-            );
-            li.textContent = `${name}：${rocDate}(${diff}天前)`;
-            li.className = diff <= 30 ? "schedule-green" : "schedule-red";
-          }
-          ul.appendChild(li);
-        });
-        document.getElementById("schedule-modal").classList.add("open");
-
-        [
-          "form-0",
-          "form-1",
-          "form-2",
-          "form-3",
-          "form-4",
-          "form-5",
-          "form-6",
-          "form-7",
-        ].forEach(loadFormState);
-
-        document.querySelectorAll(".form-card").forEach((card) => {
-          card.addEventListener("input", () => saveFormState(card.id));
-          card.addEventListener("change", () => saveFormState(card.id));
-        });
-      });
-    </script>
 
     <!-- 日期選擇器 overlay -->
-    <div
-      class="picker-overlay"
-      id="date-picker-overlay"
-      onclick="if (event.target === this) closeDatePicker(false);"
-    >
+    <div class="picker-overlay" id="date-picker-overlay">
       <div class="picker-modal">
         <div class="picker-toolbar">
-          <button class="picker-cancel-btn" onclick="closeDatePicker(false)">
-            取消
-          </button>
+          <button class="picker-cancel-btn">取消</button>
           <span>選擇日期</span>
-          <button class="picker-confirm-btn" onclick="closeDatePicker(true)">
-            確定
-          </button>
+          <button class="picker-confirm-btn">確定</button>
         </div>
         <div class="picker-body">
           <div class="picker-highlight"></div>
@@ -2310,29 +1013,18 @@
       <div id="schedule-box">
         <h2>最後更新日期：</h2>
         <ul id="schedule-list"></ul>
-        <button
-          id="schedule-close"
-          onclick="
-            document.getElementById('schedule-modal').classList.remove('open')
-          "
-        >
-          確定
-        </button>
+        <button id="schedule-close">確定</button>
       </div>
     </div>
-    <div id="img-modal" onclick="closeImgModal()">
+    <div id="img-modal">
       <img id="img-modal-src" src="" alt="原圖" />
     </div>
     <div id="output-modal">
       <img id="output-modal-src" src="" alt="輸出圖片" />
       <div class="output-actions">
-        <button id="output-download-btn" onclick="downloadGeneratedImage()">
-          下載圖片
-        </button>
-        <button id="output-copy-btn" onclick="copyGeneratedImage()">
-          複製圖片
-        </button>
-        <button id="output-close-btn" onclick="closeOutputModal()">關閉</button>
+        <button id="output-download-btn">下載圖片</button>
+        <button id="output-copy-btn">複製圖片</button>
+        <button id="output-close-btn">關閉</button>
       </div>
     </div>
     <div id="toast">已複製！</div>
