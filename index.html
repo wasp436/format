@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>回報項目表單</title>
-    <meta name="referrer" content="no-referrer" />
+    <!-- 不蒜子後端靠 Referer 標頭辨識頁面，設 no-referrer 會導致計數失效 -->
+    <meta name="referrer" content="no-referrer-when-downgrade" />
     <meta
       http-equiv="Permissions-Policy"
       content="geolocation=(), microphone=(), camera=()"
@@ -15,9 +16,7 @@
   <body>
     <!-- 分頁按鈕 -->
     <div class="tabs">
-      <button class="tab-btn active" data-tab="0">
-        全院終端箱拆除
-      </button>
+      <button class="tab-btn active" data-tab="0">全院終端箱拆除</button>
       <button class="tab-btn" data-tab="1">全院小型送風機需汰換</button>
       <button class="tab-btn" data-tab="2">全院保溫失效</button>
       <button class="tab-btn" data-tab="3">全院變頻器故障</button>
@@ -992,7 +991,6 @@
     </div>
     <!-- /content -->
 
-
     <!-- 日期選擇器 overlay -->
     <div class="picker-overlay" id="date-picker-overlay">
       <div class="picker-modal">
@@ -1009,6 +1007,15 @@
         </div>
       </div>
     </div>
+    <footer class="site-footer">
+      <span id="busuanzi_container_site_pv" style="display: none">
+        總瀏覽人次：<span id="busuanzi_value_site_pv"></span>
+      </span>
+      <span id="busuanzi_container_site_uv" style="display: none">
+        ｜訪客數：<span id="busuanzi_value_site_uv"></span>
+      </span>
+    </footer>
+
     <div id="schedule-modal">
       <div id="schedule-box">
         <h2>最後更新日期：</h2>
@@ -1028,6 +1035,13 @@
       </div>
     </div>
     <div id="toast">已複製！</div>
+    <!-- 不蒜子 瀏覽統計 -->
+    <script
+      async
+      src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
+    ></script>
+    <!-- End 不蒜子 -->
+
     <!-- Cloudflare Web Analytics -->
     <script
       type="module"
