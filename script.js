@@ -25,7 +25,7 @@ function copyText(formId, title) {
       } else if (el.classList.contains("date-picker-trigger")) {
         line += el.textContent.trim();
       } else if (el.tagName === "INPUT" && el.type === "text") {
-        line += el.value;
+        line += el.value + "  ";
       }
     });
 
@@ -102,7 +102,8 @@ function collectLiSegments(li) {
       const t = el.textContent.trim();
       if (t) segments.push({ text: t, color: FORM_INK });
     } else if (el.tagName === "INPUT" && el.type === "text") {
-      if (el.value.trim()) segments.push({ text: el.value, color: FORM_INK });
+      if (el.value.trim())
+        segments.push({ text: el.value + "  ", color: FORM_INK });
     }
   });
 
