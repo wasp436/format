@@ -710,12 +710,13 @@ bindEvents();
 const _schedule = [
   { name: "終端箱拆除", date: "2026-06-03" },
   { name: "小型送風機需汰換", date: "2026-08-10" },
-  { name: "保溫失效", date: "2026-05-26" },
+  { name: "保溫失效", date: "2026-08-27" },
   { name: "變頻器故障", date: "2026-04-22" },
   { name: "管路漏水故障", date: "2026-05-25" },
   { name: "工作閥故障", date: "2026-05-29" },
   { name: "中正樓拆終端箱", date: "2026-06-17" },
   { name: "全院空調噪音", date: "2026-06-22" },
+  { name: "送排風機故障回報", date: "2026-08-27" },
 ];
 document.addEventListener("DOMContentLoaded", function () {
   const today = new Date();
@@ -745,6 +746,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "form-5",
     "form-6",
     "form-7",
+    "form-8",
   ].forEach(loadFormState);
 
   document.querySelectorAll(".form-card").forEach((card) => {

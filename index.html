@@ -24,6 +24,7 @@
       <button class="tab-btn" data-tab="5">全院工作閥故障</button>
       <button class="tab-btn" data-tab="6">中正樓 拆終端箱</button>
       <button class="tab-btn" data-tab="7">全院空調噪音</button>
+      <button class="tab-btn" data-tab="8">送排風機(風管)故障</button>
     </div>
 
     <div class="content">
@@ -980,6 +981,81 @@
             class="copy-btn"
             data-copy-form="form-7"
             data-copy-title="全院空調噪音回報"
+          >
+            複製文字
+          </button>
+          <button class="paste-btn">貼回表單</button>
+          <button class="clear-btn">清空表單</button>
+          <button class="gen-btn">輸出圖片</button>
+        </div>
+      </div>
+
+      <!-- ===== 表單 9：送排風機(風管)等設備 故障回報程序 ===== -->
+      <div class="form-panel" id="panel-8">
+        <div class="form-card" id="form-8">
+          <div class="form-header">
+            <span class="form-title">送排風機(風管)等設備 故障回報程序</span>
+            <button class="view-img-link" data-img="1787887862827.png">
+              查看原圖
+            </button>
+          </div>
+          <ol class="form-list">
+            <li>
+              <label class="item-label" for="f9-nameplate"
+                >拍攝清晰銘牌照片-製造日期．電壓．風量</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f9-nameplate" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label" for="f9-overall"
+                >拍攝整體．相對位置照片</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f9-overall" />
+              </span>
+            </li>
+            <li>
+              <label class="item-label" for="f9-damage"
+                >拍攝最嚴重-故障損壞照片</label
+              >
+              <span class="cb-group">
+                <input type="checkbox" id="f9-damage" />
+              </span>
+            </li>
+            <li>
+              <span class="item-label">現場可施工日期．時間：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">供應區域：</span>
+              <input type="text" class="long" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label"
+                ><span class="underline">合梯幾尺</span>：</span
+              >
+              <input type="text" class="short" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label">勘查人員：</span>
+              <input type="text" class="medium" placeholder="" />
+            </li>
+            <li>
+              <span class="item-label"
+                >※備註：照片中如有髒污．<span class="underline"
+                  >金屬鏽片等</span
+                >．請清除後拍照。</span
+              >
+            </li>
+          </ol>
+        </div>
+        <div class="export-bar">
+          <button
+            class="copy-btn"
+            data-copy-form="form-8"
+            data-copy-title="送排風機故障回報"
           >
             複製文字
           </button>
