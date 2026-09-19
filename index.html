@@ -14,1058 +14,1068 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- 分頁按鈕 -->
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="0">全院終端箱拆除</button>
-      <button class="tab-btn" data-tab="1">全院小型送風機需汰換</button>
-      <button class="tab-btn" data-tab="2">全院保溫失效</button>
-      <button class="tab-btn" data-tab="3">全院變頻器故障</button>
-      <button class="tab-btn" data-tab="4">全院管路漏水故障</button>
-      <button class="tab-btn" data-tab="5">全院工作閥故障</button>
-      <button class="tab-btn" data-tab="6">中正樓 拆終端箱</button>
-      <button class="tab-btn" data-tab="7">全院空調噪音</button>
-      <button class="tab-btn" data-tab="8">送排風機(風管)故障</button>
+    <header class="app-header">
+      <span class="app-title">故障回報</span>
+      <span class="app-subtitle">現場勘查紀錄，一鍵複製到回報群組</span>
+    </header>
+
+    <div class="layout">
+      <!-- 分頁按鈕 -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="0">全院終端箱拆除</button>
+        <button class="tab-btn" data-tab="1">全院小型送風機需汰換</button>
+        <button class="tab-btn" data-tab="2">全院保溫失效</button>
+        <button class="tab-btn" data-tab="3">全院變頻器故障</button>
+        <button class="tab-btn" data-tab="4">全院管路漏水故障</button>
+        <button class="tab-btn" data-tab="5">全院工作閥故障</button>
+        <button class="tab-btn" data-tab="6">中正樓 拆終端箱</button>
+        <button class="tab-btn" data-tab="7">全院空調噪音</button>
+        <button class="tab-btn" data-tab="8">送排風機(風管)故障</button>
+      </div>
+
+      <div class="content">
+        <!-- ===== 表單 1：全院終端箱拆除回報項目 ===== -->
+        <div class="form-panel active" id="panel-0">
+          <div class="form-card" id="form-0">
+            <div class="form-header">
+              <span class="form-title">全院終端箱拆除回報項目</span>
+              <button class="view-img-link" data-img="1780366927777.png">
+                查看原圖
+              </button>
+            </div>
+            <ol class="form-list">
+              <li>
+                <span class="item-label">發生日期：</span>
+                <div class="date-picker-trigger"></div>
+              </li>
+              <li>
+                <span class="item-label">發生地點：</span>
+                <input type="text" class="long" placeholder="" />
+              </li>
+              <li>
+                <label class="item-label red" for="f1-air-box"
+                  >確認供給 空調箱編號</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f1-air-box" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f1-photo"
+                  >上傳相對位置照片至<span class="underline">群組</span></label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f1-photo" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f1-unit-need"
+                  >確認單位需求</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f1-unit-need" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f1-valve"
+                  >確認終端箱 前方<span class="underline">關斷閥</span
+                  >位置</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f1-valve" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f1-damage"
+                  >確認其他相關管線或零配件是否損壞</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f1-damage" />
+                </span>
+              </li>
+              <li>
+                <span class="item-label red">型式：</span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f1-square" />
+                  <label class="cb-label red" for="f1-square">方形風管</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f1-spiral" />
+                  <label class="cb-label red" for="f1-spiral">螺旋風管</label>
+                </span>
+              </li>
+              <li>
+                <span class="item-label"
+                  ><span class="underline">風管尺吋</span>：</span
+                >
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label red"
+                  ><span class="underline">需合梯幾尺</span>：</span
+                >
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">可施工時間：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">請修單編號：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">單位來電人員：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">單位聯絡電話：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">我方勘查人員：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+            </ol>
+          </div>
+          <div class="export-bar">
+            <button
+              class="copy-btn"
+              data-copy-form="form-0"
+              data-copy-title="全院終端箱拆除回報"
+            >
+              複製文字
+            </button>
+            <button class="paste-btn">貼回表單</button>
+            <button class="clear-btn">清空表單</button>
+            <button class="gen-btn">輸出圖片</button>
+          </div>
+        </div>
+
+        <!-- ===== 表單 2：全院小型送風機需汰換回報項目 ===== -->
+        <div class="form-panel" id="panel-1">
+          <div class="form-card" id="form-1">
+            <div class="form-header">
+              <span class="form-title">全院小型送風機需汰換回報項目</span>
+              <button class="view-img-link" data-img="1786338232959.png">
+                查看原圖
+              </button>
+            </div>
+            <ol class="form-list">
+              <li>
+                <span class="item-label">發生日期：</span>
+                <div class="date-picker-trigger"></div>
+              </li>
+              <li>
+                <span class="item-label">發生地點：</span>
+                <input type="text" class="long" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">故障問題：</span>
+                <input type="text" class="long" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label red"
+                  >機器所在位置是否有空間<span class="underline">汰換</span
+                  >：</span
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-space-yes" />
+                  <label class="cb-label red" for="f2-space-yes">是</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-space-no" />
+                  <label class="cb-label red" for="f2-space-no">否</label>
+                </span>
+              </li>
+              <li>
+                <span class="item-label red">F/C 型號：</span>
+                <input type="text" class="medium" placeholder="" />
+                <span class="item-label red">F/C 電壓：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-replace-unit" />
+                  <label class="cb-label red" for="f2-replace-unit"
+                    >汰換整台</label
+                  >
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-replace-valve" />
+                  <label class="cb-label red" for="f2-replace-valve"
+                    >更換控制閥</label
+                  >
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-replace-panel" />
+                  <label class="cb-label red" for="f2-replace-panel"
+                    >更換面板</label
+                  >
+                </span>
+              </li>
+              <li>
+                <span class="item-label">F/C 箱體位於：</span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-room" />
+                  <label class="cb-label" for="f2-room">病房</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-corridor" />
+                  <label class="cb-label" for="f2-corridor">走道</label>
+                </span>
+              </li>
+              <li>
+                <label class="item-label" for="f2-repair"
+                  >已通知<span class="underline">單位</span>打<span
+                    class="underline"
+                    >請修</span
+                  >單：</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-repair" />
+                </span>
+              </li>
+              <li>
+                <span class="item-label">請修單編號：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">面對 F/C 出風箱：</span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-right" />
+                  <label class="cb-label" for="f2-right">右出</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-left" />
+                  <label class="cb-label" for="f2-left">左出</label>
+                </span>
+              </li>
+              <li>
+                <span class="item-label">F/C 管排數量：</span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-single" />
+                  <label class="cb-label" for="f2-single">單</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-double" />
+                  <label class="cb-label" for="f2-double">雙</label>
+                </span>
+              </li>
+              <li>
+                <span class="item-label red">控制閥故障：</span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-v2" />
+                  <label class="cb-label red" for="f2-v2">二通閥</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-v3" />
+                  <label class="cb-label red" for="f2-v3">三通閥</label>
+                </span>
+              </li>
+              <li>
+                <span class="item-label red">控制閥電壓：</span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-v220" />
+                  <label class="cb-label red" for="f2-v220">220V</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-v110" />
+                  <label class="cb-label red" for="f2-v110">110V</label>
+                </span>
+              </li>
+              <li>
+                <span class="item-label red">控制面板故障：</span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-p220" />
+                  <label class="cb-label red" for="f2-p220">220V</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-p110" />
+                  <label class="cb-label red" for="f2-p110">110V</label>
+                </span>
+              </li>
+              <li>
+                <span class="item-label red">控制盒故障：</span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-b220" />
+                  <label class="cb-label red" for="f2-b220">220V</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-b110" />
+                  <label class="cb-label red" for="f2-b110">110V</label>
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f2-motor"
+                  >馬達是否故障：</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f2-motor" />
+                </span>
+              </li>
+              <li>
+                <span class="item-label">出風口數量：</span>
+                <input type="text" class="short" placeholder="" />
+                <span class="item-label">回風口數量：</span>
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label"
+                  >使用<span class="underline">合梯幾尺</span>：</span
+                >
+                <input type="text" class="short" placeholder="" />
+                <span class="item-label">單位可施工時間：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">來電人員：</span>
+                <input type="text" class="medium" placeholder="" />
+                <span class="item-label">聯絡電話：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">勘查人員：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+            </ol>
+          </div>
+          <div class="export-bar">
+            <button
+              class="copy-btn"
+              data-copy-form="form-1"
+              data-copy-title="全院小型送風機需汰換回報"
+            >
+              複製文字
+            </button>
+            <button class="paste-btn">貼回表單</button>
+            <button class="clear-btn">清空表單</button>
+            <button class="gen-btn">輸出圖片</button>
+          </div>
+        </div>
+
+        <!-- ===== 表單 3：全院保溫失效回報項目 ===== -->
+        <div class="form-panel" id="panel-2">
+          <div class="form-card" id="form-2">
+            <div class="form-header">
+              <span class="form-title">全院保溫失效回報項目</span>
+              <button class="view-img-link" data-img="1779778627168.png">
+                查看原圖
+              </button>
+            </div>
+            <ol class="form-list">
+              <li>
+                <span class="item-label">發生日期：</span>
+                <div class="date-picker-trigger"></div>
+              </li>
+              <li>
+                <span class="item-label">發生地點：</span>
+                <input type="text" class="long" placeholder="" />
+              </li>
+              <li>
+                <label class="item-label red" for="f3-cut"
+                  >一定要切開保溫查看確認</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f3-cut" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f3-photo"
+                  >漏水上傳<span class="underline">照片</span>至群組</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f3-photo" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f3-noleak"
+                  >管路確認<span class="underline">無砂孔</span>漏水</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f3-noleak" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f3-notother"
+                  >確認非其他管路漏水</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f3-notother" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f3-nostructure"
+                  >確認非結構漏水</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f3-nostructure" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f3-noair"
+                  >確認無外氣侵入</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f3-noair" />
+                </span>
+              </li>
+              <li>
+                <span class="item-label">型式：</span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f3-icepipe" />
+                  <label class="cb-label" for="f3-icepipe">冰水管</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f3-drain" />
+                  <label class="cb-label" for="f3-drain">排水管</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f3-duct" />
+                  <label class="cb-label" for="f3-duct">風管</label>
+                </span>
+              </li>
+              <li>
+                <span class="item-label">水管管徑(吋)：</span>
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label"
+                  ><span class="underline">需合梯幾尺</span>：</span
+                >
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">可施工時間：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">單位來電人員：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">單位聯絡電話：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">我方勘查人員：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+            </ol>
+          </div>
+          <div class="export-bar">
+            <button
+              class="copy-btn"
+              data-copy-form="form-2"
+              data-copy-title="全院保溫失效回報"
+            >
+              複製文字
+            </button>
+            <button class="paste-btn">貼回表單</button>
+            <button class="clear-btn">清空表單</button>
+            <button class="gen-btn">輸出圖片</button>
+          </div>
+        </div>
+
+        <!-- ===== 表單 4：全院變頻器故障回報項目 ===== -->
+        <div class="form-panel" id="panel-3">
+          <div class="form-card" id="form-3">
+            <div class="form-header">
+              <span class="form-title">全院變頻器故障回報項目</span>
+              <button class="view-img-link" data-img="1776819933487.jpg">
+                查看原圖
+              </button>
+            </div>
+            <ol class="form-list">
+              <li>
+                <span class="item-label red">故障訊息：</span>
+                <input type="text" class="long" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">設備地點：</span>
+                <input type="text" class="long" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">設備編號：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">變頻器廠牌：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">變頻器型號：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">設備馬力：</span>
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">變頻器電壓：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">變頻器長度：</span>
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">變頻器寬度：</span>
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">變頻器高度：</span>
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">勘查人員：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">單位承辦：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">單位分機：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <label class="item-label" for="f4-upload"
+                  ><span class="underline">拍照上傳群組</span></label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f4-upload" />
+                </span>
+              </li>
+            </ol>
+          </div>
+          <div class="export-bar">
+            <button
+              class="copy-btn"
+              data-copy-form="form-3"
+              data-copy-title="全院變頻器故障回報"
+            >
+              複製文字
+            </button>
+            <button class="paste-btn">貼回表單</button>
+            <button class="clear-btn">清空表單</button>
+            <button class="gen-btn">輸出圖片</button>
+          </div>
+        </div>
+
+        <!-- ===== 表單 5：全院管路漏水故障回報項目 ===== -->
+        <div class="form-panel" id="panel-4">
+          <div class="form-card" id="form-4">
+            <div class="form-header">
+              <span class="form-title red">全院管路漏水故障回報項目</span>
+              <button class="view-img-link" data-img="1778631115360.png">
+                查看原圖
+              </button>
+            </div>
+            <ol class="form-list">
+              <li>
+                <span class="item-label">設備地點：</span>
+                <input type="text" class="long" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">設備編號：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li class="li-tight">
+                <span class="item-label">確認管路性質：</span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f5-icein" />
+                  <label class="cb-label" for="f5-icein">冰水進水</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f5-iceout" />
+                  <label class="cb-label" for="f5-iceout">冰水回水</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f5-icemain" />
+                  <label class="cb-label" for="f5-icemain">冰水幹管</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f5-cool" />
+                  <label class="cb-label" for="f5-cool">冷卻水管</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f5-drain" />
+                  <label class="cb-label" for="f5-drain">排水管</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f5-steam" />
+                  <label class="cb-label" for="f5-steam">蒸氣管</label>
+                </span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f5-other" />
+                  <label class="cb-label" for="f5-other">其他：</label>
+                </span>
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <label class="item-label" for="f5-valve"
+                  >確認進出水工作閥位置及功能正常</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f5-valve" />
+                </span>
+              </li>
+              <li>
+                <span class="item-label red underline">管徑幾吋：</span>
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label red bold underline"
+                  >是否可用管夾先處理？</span
+                >
+                <input type="text" class="medium" placeholder="是 / 否" />
+              </li>
+              <li>
+                <label class="item-label" for="f5-photo"
+                  >上傳榮總群組 清晰照片或短片</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f5-photo" />
+                </span>
+              </li>
+              <li>
+                <span class="item-label">勘查人員：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">單位承辦：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">單位電話：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+            </ol>
+          </div>
+          <div class="export-bar">
+            <button
+              class="copy-btn"
+              data-copy-form="form-4"
+              data-copy-title="全院管路漏水故障回報"
+            >
+              複製文字
+            </button>
+            <button class="paste-btn">貼回表單</button>
+            <button class="clear-btn">清空表單</button>
+            <button class="gen-btn">輸出圖片</button>
+          </div>
+        </div>
+        <!-- ===== 表單 6：全院工作閥故障回報項目 ===== -->
+        <div class="form-panel" id="panel-5">
+          <div class="form-card" id="form-5">
+            <div class="form-header">
+              <span class="form-title red">全院工作閥故障回報項目</span>
+              <button class="view-img-link" data-img="1780052426012.png">
+                查看原圖
+              </button>
+            </div>
+            <ol class="form-list">
+              <li>
+                <span class="item-label">設備地點：</span>
+                <input type="text" class="long" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">設備編號：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">工作閥廠牌：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">工作閥型號：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label"
+                  ><span class="underline">工作閥管徑</span>：</span
+                >
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <label class="item-label" for="f6-shutoff"
+                  >故障工作閥之前<span class="underline">後關斷閥</span
+                  >確認可關閉</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f6-shutoff" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label" for="f6-photo"
+                  >上傳榮總群組清晰照片</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f6-photo" />
+                </span>
+              </li>
+              <li>
+                <span class="item-label">勘查人員：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+            </ol>
+          </div>
+          <div class="export-bar">
+            <button
+              class="copy-btn"
+              data-copy-form="form-5"
+              data-copy-title="全院工作閥故障回報"
+            >
+              複製文字
+            </button>
+            <button class="paste-btn">貼回表單</button>
+            <button class="clear-btn">清空表單</button>
+            <button class="gen-btn">輸出圖片</button>
+          </div>
+        </div>
+
+        <!-- ===== 表單 7：中正樓 拆終端箱回報項目 ===== -->
+        <div class="form-panel" id="panel-6">
+          <div class="form-card" id="form-6">
+            <div class="form-header">
+              <span class="form-title">中正樓 拆終端箱回報項目</span>
+              <button class="view-img-link" data-img="1781688550960.png">
+                查看原圖
+              </button>
+            </div>
+            <ol class="form-list">
+              <li>
+                <span class="item-label">發生日期：</span>
+                <div class="date-picker-trigger"></div>
+              </li>
+              <li>
+                <span class="item-label">發生地點：</span>
+                <input type="text" class="long" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">位於</span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f7-room" />
+                  <label class="cb-label" for="f7-room">房內</label>
+                </span>
+                <span class="item-label">或</span>
+                <span class="cb-group">
+                  <input type="checkbox" id="f7-corridor" />
+                  <label class="cb-label" for="f7-corridor">走道</label>
+                </span>
+              </li>
+              <li>
+                <label class="item-label" for="f7-notify"
+                  >通知<span class="underline">單位</span>打<span
+                    class="underline"
+                    >請修單</span
+                  ></label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f7-notify" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label" for="f7-airflow"
+                  >拆除終端<span class="underline">箱進風端</span
+                  >．確認出風量</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f7-airflow" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label" for="f7-damper"
+                  >確認<span class="underline">進風端</span>是否風門全開</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f7-damper" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label" for="f7-photo"
+                  ><span class="underline">上傳群組</span> 清晰照片</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f7-photo" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label" for="f7-repair"
+                  >請<span class="underline">單位</span>打<span
+                    class="underline"
+                    >請修單</span
+                  ></label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f7-repair" />
+                </span>
+              </li>
+              <li>
+                <span class="item-label">請修單編號：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">出風口數量：</span>
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label"
+                  >使用<span class="underline">合梯幾尺</span>：</span
+                >
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">單位可施工時間：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">單位人員：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">單位電話：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">勘查人員：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+            </ol>
+          </div>
+          <div class="export-bar">
+            <button
+              class="copy-btn"
+              data-copy-form="form-6"
+              data-copy-title="中正樓拆終端箱回報"
+            >
+              複製文字
+            </button>
+            <button class="paste-btn">貼回表單</button>
+            <button class="clear-btn">清空表單</button>
+            <button class="gen-btn">輸出圖片</button>
+          </div>
+        </div>
+
+        <!-- ===== 表單 8：全院空調噪音回報項目 ===== -->
+        <div class="form-panel" id="panel-7">
+          <div class="form-card" id="form-7">
+            <div class="form-header">
+              <span class="form-title">全院空調噪音回報項目</span>
+              <button class="view-img-link" data-img="1782097276019.png">
+                查看原圖
+              </button>
+            </div>
+            <ol class="form-list">
+              <li>
+                <span class="item-label">日期：</span>
+                <div class="date-picker-trigger"></div>
+              </li>
+              <li>
+                <span class="item-label">時間：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">地點：</span>
+                <input type="text" class="long" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">勘查員：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <label class="item-label red" for="f8-lamp">出風口吹燈罩</label>
+                <span class="cb-group">
+                  <input type="checkbox" id="f8-lamp" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f8-fc-motor"
+                  >F/C 馬達故障</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f8-fc-motor" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f8-fc-valve"
+                  >F/C 控制閥故障</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f8-fc-valve" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f8-fc-box"
+                  >F/C 控制盒故障</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f8-fc-box" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f8-vibration"
+                  >設備異常(避震器故障)傳至建築結構</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f8-vibration" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f8-sfef"
+                  >SF.EF.
+                  皮帶龜裂/彈性疲乏．馬達/風車軸承．風車葉輪．聯軸器等故障</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f8-sfef" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f8-ah"
+                  >A/H
+                  皮帶龜裂/彈性疲乏．馬達/風車軸承．風車葉輪．聯軸器．管排漏水等故障</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f8-ah" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f8-chilled"
+                  >冰水管(泵浦故障)震動</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f8-chilled" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f8-cooling"
+                  >冷卻水管(<span class="underline">回水濾網</span
+                  >阻塞)震動</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f8-cooling" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f8-tower"
+                  >冷卻水塔皮帶．馬達/風車軸承等故障</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f8-tower" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label red" for="f8-pump"
+                  >泵浦馬達/泵浦軸承．聯軸器等故障</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f8-pump" />
+                </span>
+              </li>
+              <li>
+                <span class="item-label">請修單編號：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label"
+                  >如遇無法判斷，務必請→通知機動組長協助→通知區域領班勘查→以做後續處理。</span
+                >
+              </li>
+            </ol>
+          </div>
+          <div class="export-bar">
+            <button
+              class="copy-btn"
+              data-copy-form="form-7"
+              data-copy-title="全院空調噪音回報"
+            >
+              複製文字
+            </button>
+            <button class="paste-btn">貼回表單</button>
+            <button class="clear-btn">清空表單</button>
+            <button class="gen-btn">輸出圖片</button>
+          </div>
+        </div>
+
+        <!-- ===== 表單 9：送排風機(風管)等設備 故障回報程序 ===== -->
+        <div class="form-panel" id="panel-8">
+          <div class="form-card" id="form-8">
+            <div class="form-header">
+              <span class="form-title">送排風機(風管)等設備 故障回報程序</span>
+              <button class="view-img-link" data-img="1787887862827.png">
+                查看原圖
+              </button>
+            </div>
+            <ol class="form-list">
+              <li>
+                <label class="item-label" for="f9-nameplate"
+                  >拍攝清晰銘牌照片-製造日期．電壓．風量</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f9-nameplate" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label" for="f9-overall"
+                  >拍攝整體．相對位置照片</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f9-overall" />
+                </span>
+              </li>
+              <li>
+                <label class="item-label" for="f9-damage"
+                  >拍攝最嚴重-故障損壞照片</label
+                >
+                <span class="cb-group">
+                  <input type="checkbox" id="f9-damage" />
+                </span>
+              </li>
+              <li>
+                <span class="item-label">現場可施工日期．時間：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">供應區域：</span>
+                <input type="text" class="long" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label"
+                  ><span class="underline">合梯幾尺</span>：</span
+                >
+                <input type="text" class="short" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label">勘查人員：</span>
+                <input type="text" class="medium" placeholder="" />
+              </li>
+              <li>
+                <span class="item-label"
+                  >※備註：照片中如有髒污．<span class="underline"
+                    >金屬鏽片等</span
+                  >．請清除後拍照。</span
+                >
+              </li>
+            </ol>
+          </div>
+          <div class="export-bar">
+            <button
+              class="copy-btn"
+              data-copy-form="form-8"
+              data-copy-title="送排風機故障回報"
+            >
+              複製文字
+            </button>
+            <button class="paste-btn">貼回表單</button>
+            <button class="clear-btn">清空表單</button>
+            <button class="gen-btn">輸出圖片</button>
+          </div>
+        </div>
+      </div>
+      <!-- /content -->
     </div>
-
-    <div class="content">
-      <!-- ===== 表單 1：全院終端箱拆除回報項目 ===== -->
-      <div class="form-panel active" id="panel-0">
-        <div class="form-card" id="form-0">
-          <div class="form-header">
-            <span class="form-title">全院終端箱拆除回報項目</span>
-            <button class="view-img-link" data-img="1780366927777.png">
-              查看原圖
-            </button>
-          </div>
-          <ol class="form-list">
-            <li>
-              <span class="item-label">發生日期：</span>
-              <div class="date-picker-trigger"></div>
-            </li>
-            <li>
-              <span class="item-label">發生地點：</span>
-              <input type="text" class="long" placeholder="" />
-            </li>
-            <li>
-              <label class="item-label red" for="f1-air-box"
-                >確認供給 空調箱編號</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f1-air-box" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f1-photo"
-                >上傳相對位置照片至<span class="underline">群組</span></label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f1-photo" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f1-unit-need"
-                >確認單位需求</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f1-unit-need" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f1-valve"
-                >確認終端箱 前方<span class="underline">關斷閥</span>位置</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f1-valve" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f1-damage"
-                >確認其他相關管線或零配件是否損壞</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f1-damage" />
-              </span>
-            </li>
-            <li>
-              <span class="item-label red">型式：</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f1-square" />
-                <label class="cb-label red" for="f1-square">方形風管</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f1-spiral" />
-                <label class="cb-label red" for="f1-spiral">螺旋風管</label>
-              </span>
-            </li>
-            <li>
-              <span class="item-label"
-                ><span class="underline">風管尺吋</span>：</span
-              >
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label red"
-                ><span class="underline">需合梯幾尺</span>：</span
-              >
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">可施工時間：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">請修單編號：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">單位來電人員：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">單位聯絡電話：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">我方勘查人員：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-          </ol>
-        </div>
-        <div class="export-bar">
-          <button
-            class="copy-btn"
-            data-copy-form="form-0"
-            data-copy-title="全院終端箱拆除回報"
-          >
-            複製文字
-          </button>
-          <button class="paste-btn">貼回表單</button>
-          <button class="clear-btn">清空表單</button>
-          <button class="gen-btn">輸出圖片</button>
-        </div>
-      </div>
-
-      <!-- ===== 表單 2：全院小型送風機需汰換回報項目 ===== -->
-      <div class="form-panel" id="panel-1">
-        <div class="form-card" id="form-1">
-          <div class="form-header">
-            <span class="form-title">全院小型送風機需汰換回報項目</span>
-            <button class="view-img-link" data-img="1786338232959.png">
-              查看原圖
-            </button>
-          </div>
-          <ol class="form-list">
-            <li>
-              <span class="item-label">發生日期：</span>
-              <div class="date-picker-trigger"></div>
-            </li>
-            <li>
-              <span class="item-label">發生地點：</span>
-              <input type="text" class="long" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">故障問題：</span>
-              <input type="text" class="long" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label red"
-                >機器所在位置是否有空間<span class="underline">汰換</span
-                >：</span
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f2-space-yes" />
-                <label class="cb-label red" for="f2-space-yes">是</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-space-no" />
-                <label class="cb-label red" for="f2-space-no">否</label>
-              </span>
-            </li>
-            <li>
-              <span class="item-label red">F/C 型號：</span>
-              <input type="text" class="medium" placeholder="" />
-              <span class="item-label red">F/C 電壓：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-replace-unit" />
-                <label class="cb-label red" for="f2-replace-unit"
-                  >汰換整台</label
-                >
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-replace-valve" />
-                <label class="cb-label red" for="f2-replace-valve"
-                  >更換控制閥</label
-                >
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-replace-panel" />
-                <label class="cb-label red" for="f2-replace-panel"
-                  >更換面板</label
-                >
-              </span>
-            </li>
-            <li>
-              <span class="item-label">F/C 箱體位於：</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-room" />
-                <label class="cb-label" for="f2-room">病房</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-corridor" />
-                <label class="cb-label" for="f2-corridor">走道</label>
-              </span>
-            </li>
-            <li>
-              <label class="item-label" for="f2-repair"
-                >已通知<span class="underline">單位</span>打<span
-                  class="underline"
-                  >請修</span
-                >單：</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f2-repair" />
-              </span>
-            </li>
-            <li>
-              <span class="item-label">請修單編號：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">面對 F/C 出風箱：</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-right" />
-                <label class="cb-label" for="f2-right">右出</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-left" />
-                <label class="cb-label" for="f2-left">左出</label>
-              </span>
-            </li>
-            <li>
-              <span class="item-label">F/C 管排數量：</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-single" />
-                <label class="cb-label" for="f2-single">單</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-double" />
-                <label class="cb-label" for="f2-double">雙</label>
-              </span>
-            </li>
-            <li>
-              <span class="item-label red">控制閥故障：</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-v2" />
-                <label class="cb-label red" for="f2-v2">二通閥</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-v3" />
-                <label class="cb-label red" for="f2-v3">三通閥</label>
-              </span>
-            </li>
-            <li>
-              <span class="item-label red">控制閥電壓：</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-v220" />
-                <label class="cb-label red" for="f2-v220">220V</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-v110" />
-                <label class="cb-label red" for="f2-v110">110V</label>
-              </span>
-            </li>
-            <li>
-              <span class="item-label red">控制面板故障：</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-p220" />
-                <label class="cb-label red" for="f2-p220">220V</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-p110" />
-                <label class="cb-label red" for="f2-p110">110V</label>
-              </span>
-            </li>
-            <li>
-              <span class="item-label red">控制盒故障：</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-b220" />
-                <label class="cb-label red" for="f2-b220">220V</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f2-b110" />
-                <label class="cb-label red" for="f2-b110">110V</label>
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f2-motor"
-                >馬達是否故障：</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f2-motor" />
-              </span>
-            </li>
-            <li>
-              <span class="item-label">出風口數量：</span>
-              <input type="text" class="short" placeholder="" />
-              <span class="item-label">回風口數量：</span>
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label"
-                >使用<span class="underline">合梯幾尺</span>：</span
-              >
-              <input type="text" class="short" placeholder="" />
-              <span class="item-label">單位可施工時間：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">來電人員：</span>
-              <input type="text" class="medium" placeholder="" />
-              <span class="item-label">聯絡電話：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">勘查人員：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-          </ol>
-        </div>
-        <div class="export-bar">
-          <button
-            class="copy-btn"
-            data-copy-form="form-1"
-            data-copy-title="全院小型送風機需汰換回報"
-          >
-            複製文字
-          </button>
-          <button class="paste-btn">貼回表單</button>
-          <button class="clear-btn">清空表單</button>
-          <button class="gen-btn">輸出圖片</button>
-        </div>
-      </div>
-
-      <!-- ===== 表單 3：全院保溫失效回報項目 ===== -->
-      <div class="form-panel" id="panel-2">
-        <div class="form-card" id="form-2">
-          <div class="form-header">
-            <span class="form-title">全院保溫失效回報項目</span>
-            <button class="view-img-link" data-img="1779778627168.png">
-              查看原圖
-            </button>
-          </div>
-          <ol class="form-list">
-            <li>
-              <span class="item-label">發生日期：</span>
-              <div class="date-picker-trigger"></div>
-            </li>
-            <li>
-              <span class="item-label">發生地點：</span>
-              <input type="text" class="long" placeholder="" />
-            </li>
-            <li>
-              <label class="item-label red" for="f3-cut"
-                >一定要切開保溫查看確認</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f3-cut" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f3-photo"
-                >漏水上傳<span class="underline">照片</span>至群組</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f3-photo" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f3-noleak"
-                >管路確認<span class="underline">無砂孔</span>漏水</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f3-noleak" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f3-notother"
-                >確認非其他管路漏水</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f3-notother" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f3-nostructure"
-                >確認非結構漏水</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f3-nostructure" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f3-noair"
-                >確認無外氣侵入</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f3-noair" />
-              </span>
-            </li>
-            <li>
-              <span class="item-label">型式：</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f3-icepipe" />
-                <label class="cb-label" for="f3-icepipe">冰水管</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f3-drain" />
-                <label class="cb-label" for="f3-drain">排水管</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f3-duct" />
-                <label class="cb-label" for="f3-duct">風管</label>
-              </span>
-            </li>
-            <li>
-              <span class="item-label">水管管徑(吋)：</span>
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label"
-                ><span class="underline">需合梯幾尺</span>：</span
-              >
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">可施工時間：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">單位來電人員：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">單位聯絡電話：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">我方勘查人員：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-          </ol>
-        </div>
-        <div class="export-bar">
-          <button
-            class="copy-btn"
-            data-copy-form="form-2"
-            data-copy-title="全院保溫失效回報"
-          >
-            複製文字
-          </button>
-          <button class="paste-btn">貼回表單</button>
-          <button class="clear-btn">清空表單</button>
-          <button class="gen-btn">輸出圖片</button>
-        </div>
-      </div>
-
-      <!-- ===== 表單 4：全院變頻器故障回報項目 ===== -->
-      <div class="form-panel" id="panel-3">
-        <div class="form-card" id="form-3">
-          <div class="form-header">
-            <span class="form-title">全院變頻器故障回報項目</span>
-            <button class="view-img-link" data-img="1776819933487.jpg">
-              查看原圖
-            </button>
-          </div>
-          <ol class="form-list">
-            <li>
-              <span class="item-label red">故障訊息：</span>
-              <input type="text" class="long" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">設備地點：</span>
-              <input type="text" class="long" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">設備編號：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">變頻器廠牌：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">變頻器型號：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">設備馬力：</span>
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">變頻器電壓：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">變頻器長度：</span>
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">變頻器寬度：</span>
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">變頻器高度：</span>
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">勘查人員：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">單位承辦：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">單位分機：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <label class="item-label" for="f4-upload"
-                ><span class="underline">拍照上傳群組</span></label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f4-upload" />
-              </span>
-            </li>
-          </ol>
-        </div>
-        <div class="export-bar">
-          <button
-            class="copy-btn"
-            data-copy-form="form-3"
-            data-copy-title="全院變頻器故障回報"
-          >
-            複製文字
-          </button>
-          <button class="paste-btn">貼回表單</button>
-          <button class="clear-btn">清空表單</button>
-          <button class="gen-btn">輸出圖片</button>
-        </div>
-      </div>
-
-      <!-- ===== 表單 5：全院管路漏水故障回報項目 ===== -->
-      <div class="form-panel" id="panel-4">
-        <div class="form-card" id="form-4">
-          <div class="form-header">
-            <span class="form-title red">全院管路漏水故障回報項目</span>
-            <button class="view-img-link" data-img="1778631115360.png">
-              查看原圖
-            </button>
-          </div>
-          <ol class="form-list">
-            <li>
-              <span class="item-label">設備地點：</span>
-              <input type="text" class="long" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">設備編號：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li class="li-tight">
-              <span class="item-label">確認管路性質：</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f5-icein" />
-                <label class="cb-label" for="f5-icein">冰水進水</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f5-iceout" />
-                <label class="cb-label" for="f5-iceout">冰水回水</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f5-icemain" />
-                <label class="cb-label" for="f5-icemain">冰水幹管</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f5-cool" />
-                <label class="cb-label" for="f5-cool">冷卻水管</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f5-drain" />
-                <label class="cb-label" for="f5-drain">排水管</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f5-steam" />
-                <label class="cb-label" for="f5-steam">蒸氣管</label>
-              </span>
-              <span class="cb-group">
-                <input type="checkbox" id="f5-other" />
-                <label class="cb-label" for="f5-other">其他：</label>
-              </span>
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <label class="item-label" for="f5-valve"
-                >確認進出水工作閥位置及功能正常</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f5-valve" />
-              </span>
-            </li>
-            <li>
-              <span class="item-label red underline">管徑幾吋：</span>
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label red bold underline"
-                >是否可用管夾先處理？</span
-              >
-              <input type="text" class="medium" placeholder="是 / 否" />
-            </li>
-            <li>
-              <label class="item-label" for="f5-photo"
-                >上傳榮總群組 清晰照片或短片</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f5-photo" />
-              </span>
-            </li>
-            <li>
-              <span class="item-label">勘查人員：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">單位承辦：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">單位電話：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-          </ol>
-        </div>
-        <div class="export-bar">
-          <button
-            class="copy-btn"
-            data-copy-form="form-4"
-            data-copy-title="全院管路漏水故障回報"
-          >
-            複製文字
-          </button>
-          <button class="paste-btn">貼回表單</button>
-          <button class="clear-btn">清空表單</button>
-          <button class="gen-btn">輸出圖片</button>
-        </div>
-      </div>
-      <!-- ===== 表單 6：全院工作閥故障回報項目 ===== -->
-      <div class="form-panel" id="panel-5">
-        <div class="form-card" id="form-5">
-          <div class="form-header">
-            <span class="form-title red">全院工作閥故障回報項目</span>
-            <button class="view-img-link" data-img="1780052426012.png">
-              查看原圖
-            </button>
-          </div>
-          <ol class="form-list">
-            <li>
-              <span class="item-label">設備地點：</span>
-              <input type="text" class="long" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">設備編號：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">工作閥廠牌：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">工作閥型號：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label"
-                ><span class="underline">工作閥管徑</span>：</span
-              >
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <label class="item-label" for="f6-shutoff"
-                >故障工作閥之前<span class="underline">後關斷閥</span
-                >確認可關閉</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f6-shutoff" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label" for="f6-photo"
-                >上傳榮總群組清晰照片</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f6-photo" />
-              </span>
-            </li>
-            <li>
-              <span class="item-label">勘查人員：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-          </ol>
-        </div>
-        <div class="export-bar">
-          <button
-            class="copy-btn"
-            data-copy-form="form-5"
-            data-copy-title="全院工作閥故障回報"
-          >
-            複製文字
-          </button>
-          <button class="paste-btn">貼回表單</button>
-          <button class="clear-btn">清空表單</button>
-          <button class="gen-btn">輸出圖片</button>
-        </div>
-      </div>
-
-      <!-- ===== 表單 7：中正樓 拆終端箱回報項目 ===== -->
-      <div class="form-panel" id="panel-6">
-        <div class="form-card" id="form-6">
-          <div class="form-header">
-            <span class="form-title">中正樓 拆終端箱回報項目</span>
-            <button class="view-img-link" data-img="1781688550960.png">
-              查看原圖
-            </button>
-          </div>
-          <ol class="form-list">
-            <li>
-              <span class="item-label">發生日期：</span>
-              <div class="date-picker-trigger"></div>
-            </li>
-            <li>
-              <span class="item-label">發生地點：</span>
-              <input type="text" class="long" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">位於</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f7-room" />
-                <label class="cb-label" for="f7-room">房內</label>
-              </span>
-              <span class="item-label">或</span>
-              <span class="cb-group">
-                <input type="checkbox" id="f7-corridor" />
-                <label class="cb-label" for="f7-corridor">走道</label>
-              </span>
-            </li>
-            <li>
-              <label class="item-label" for="f7-notify"
-                >通知<span class="underline">單位</span>打<span
-                  class="underline"
-                  >請修單</span
-                ></label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f7-notify" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label" for="f7-airflow"
-                >拆除終端<span class="underline">箱進風端</span
-                >．確認出風量</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f7-airflow" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label" for="f7-damper"
-                >確認<span class="underline">進風端</span>是否風門全開</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f7-damper" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label" for="f7-photo"
-                ><span class="underline">上傳群組</span> 清晰照片</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f7-photo" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label" for="f7-repair"
-                >請<span class="underline">單位</span>打<span class="underline"
-                  >請修單</span
-                ></label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f7-repair" />
-              </span>
-            </li>
-            <li>
-              <span class="item-label">請修單編號：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">出風口數量：</span>
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label"
-                >使用<span class="underline">合梯幾尺</span>：</span
-              >
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">單位可施工時間：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">單位人員：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">單位電話：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">勘查人員：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-          </ol>
-        </div>
-        <div class="export-bar">
-          <button
-            class="copy-btn"
-            data-copy-form="form-6"
-            data-copy-title="中正樓拆終端箱回報"
-          >
-            複製文字
-          </button>
-          <button class="paste-btn">貼回表單</button>
-          <button class="clear-btn">清空表單</button>
-          <button class="gen-btn">輸出圖片</button>
-        </div>
-      </div>
-
-      <!-- ===== 表單 8：全院空調噪音回報項目 ===== -->
-      <div class="form-panel" id="panel-7">
-        <div class="form-card" id="form-7">
-          <div class="form-header">
-            <span class="form-title">全院空調噪音回報項目</span>
-            <button class="view-img-link" data-img="1782097276019.png">
-              查看原圖
-            </button>
-          </div>
-          <ol class="form-list">
-            <li>
-              <span class="item-label">日期：</span>
-              <div class="date-picker-trigger"></div>
-            </li>
-            <li>
-              <span class="item-label">時間：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">地點：</span>
-              <input type="text" class="long" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">勘查員：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <label class="item-label red" for="f8-lamp">出風口吹燈罩</label>
-              <span class="cb-group">
-                <input type="checkbox" id="f8-lamp" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f8-fc-motor"
-                >F/C 馬達故障</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f8-fc-motor" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f8-fc-valve"
-                >F/C 控制閥故障</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f8-fc-valve" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f8-fc-box"
-                >F/C 控制盒故障</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f8-fc-box" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f8-vibration"
-                >設備異常(避震器故障)傳至建築結構</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f8-vibration" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f8-sfef"
-                >SF.EF.
-                皮帶龜裂/彈性疲乏．馬達/風車軸承．風車葉輪．聯軸器等故障</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f8-sfef" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f8-ah"
-                >A/H
-                皮帶龜裂/彈性疲乏．馬達/風車軸承．風車葉輪．聯軸器．管排漏水等故障</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f8-ah" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f8-chilled"
-                >冰水管(泵浦故障)震動</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f8-chilled" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f8-cooling"
-                >冷卻水管(<span class="underline">回水濾網</span
-                >阻塞)震動</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f8-cooling" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f8-tower"
-                >冷卻水塔皮帶．馬達/風車軸承等故障</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f8-tower" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label red" for="f8-pump"
-                >泵浦馬達/泵浦軸承．聯軸器等故障</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f8-pump" />
-              </span>
-            </li>
-            <li>
-              <span class="item-label">請修單編號：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label"
-                >如遇無法判斷，務必請→通知機動組長協助→通知區域領班勘查→以做後續處理。</span
-              >
-            </li>
-          </ol>
-        </div>
-        <div class="export-bar">
-          <button
-            class="copy-btn"
-            data-copy-form="form-7"
-            data-copy-title="全院空調噪音回報"
-          >
-            複製文字
-          </button>
-          <button class="paste-btn">貼回表單</button>
-          <button class="clear-btn">清空表單</button>
-          <button class="gen-btn">輸出圖片</button>
-        </div>
-      </div>
-
-      <!-- ===== 表單 9：送排風機(風管)等設備 故障回報程序 ===== -->
-      <div class="form-panel" id="panel-8">
-        <div class="form-card" id="form-8">
-          <div class="form-header">
-            <span class="form-title">送排風機(風管)等設備 故障回報程序</span>
-            <button class="view-img-link" data-img="1787887862827.png">
-              查看原圖
-            </button>
-          </div>
-          <ol class="form-list">
-            <li>
-              <label class="item-label" for="f9-nameplate"
-                >拍攝清晰銘牌照片-製造日期．電壓．風量</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f9-nameplate" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label" for="f9-overall"
-                >拍攝整體．相對位置照片</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f9-overall" />
-              </span>
-            </li>
-            <li>
-              <label class="item-label" for="f9-damage"
-                >拍攝最嚴重-故障損壞照片</label
-              >
-              <span class="cb-group">
-                <input type="checkbox" id="f9-damage" />
-              </span>
-            </li>
-            <li>
-              <span class="item-label">現場可施工日期．時間：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">供應區域：</span>
-              <input type="text" class="long" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label"
-                ><span class="underline">合梯幾尺</span>：</span
-              >
-              <input type="text" class="short" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label">勘查人員：</span>
-              <input type="text" class="medium" placeholder="" />
-            </li>
-            <li>
-              <span class="item-label"
-                >※備註：照片中如有髒污．<span class="underline"
-                  >金屬鏽片等</span
-                >．請清除後拍照。</span
-              >
-            </li>
-          </ol>
-        </div>
-        <div class="export-bar">
-          <button
-            class="copy-btn"
-            data-copy-form="form-8"
-            data-copy-title="送排風機故障回報"
-          >
-            複製文字
-          </button>
-          <button class="paste-btn">貼回表單</button>
-          <button class="clear-btn">清空表單</button>
-          <button class="gen-btn">輸出圖片</button>
-        </div>
-      </div>
-    </div>
-    <!-- /content -->
+    <!-- /layout -->
 
     <!-- 日期選擇器 overlay -->
     <div class="picker-overlay" id="date-picker-overlay">
