@@ -334,7 +334,7 @@ function clearForm() {
   const m = today.getMonth() + 1;
   const d = today.getDate();
   const dateStr = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-  const label = `${y - 1911}.${m}.${d}`;
+  const label = `${y - 1911}.${String(m).padStart(2, "0")}.${String(d).padStart(2, "0")}`;
   formCard.querySelectorAll(".date-picker-trigger").forEach((el) => {
     el.dataset.date = dateStr;
     el.textContent = label;
@@ -433,7 +433,7 @@ function fillLiFromLine(li, line) {
         const [rocY, m, d] = val.split(".").map(Number);
         const y = rocY + 1911;
         el.dataset.date = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-        el.textContent = val;
+        el.textContent = `${rocY}.${String(m).padStart(2, "0")}.${String(d).padStart(2, "0")}`;
       }
     } else {
       el.value = val;
@@ -502,7 +502,7 @@ function closeDatePicker(doConfirm) {
     const d = dayArr[getIdx("pcol-day")];
     if (y != null && m != null && d != null) {
       pickerTarget.dataset.date = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-      pickerTarget.textContent = `${y - 1911}.${m}.${d}`;
+      pickerTarget.textContent = `${y - 1911}.${String(m).padStart(2, "0")}.${String(d).padStart(2, "0")}`;
       const card = pickerTarget.closest(".form-card");
       if (card) saveFormState(card.id);
     }
@@ -593,7 +593,7 @@ function debounce(fn, ms) {
   const m = today.getMonth() + 1;
   const d = today.getDate();
   const dateStr = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-  const label = `${y - 1911}.${m}.${d}`;
+  const label = `${y - 1911}.${String(m).padStart(2, "0")}.${String(d).padStart(2, "0")}`;
   document.querySelectorAll(".date-picker-trigger").forEach((el) => {
     el.dataset.date = dateStr;
     el.textContent = label;
@@ -646,8 +646,14 @@ function loadFormState(formId) {
     });
     card.querySelectorAll(".date-picker-trigger").forEach((el, i) => {
       if (state.dates?.[i]?.text) {
-        if (state.dates[i].date) el.dataset.date = state.dates[i].date;
-        el.textContent = state.dates[i].text;
+        const date = state.dates[i].date;
+        if (date) {
+          const [y, m, d] = date.split("-").map(Number);
+          el.dataset.date = date;
+          el.textContent = `${y - 1911}.${String(m).padStart(2, "0")}.${String(d).padStart(2, "0")}`;
+        } else {
+          el.textContent = state.dates[i].text;
+        }
       }
     });
   } catch {}
@@ -709,7 +715,7 @@ bindEvents();
 
 const _schedule = [
   { name: "終端箱拆除", date: "2026-06-03" },
-  { name: "小型送風機需汰換", date: "2026-08-10" },
+  { name: "小型送風機需汰換", date: "2026-09-23" },
   { name: "保溫失效", date: "2026-08-27" },
   { name: "變頻器故障", date: "2026-04-22" },
   { name: "管路漏水故障", date: "2026-05-25" },
@@ -728,7 +734,7 @@ document.addEventListener("DOMContentLoaded", function () {
       li.textContent = `${name}：不明(?天)前`;
     } else {
       const [y, m, d] = date.split("-").map(Number);
-      const rocDate = `${y - 1911}.${m}.${d}`;
+      const rocDate = `${y - 1911}.${String(m).padStart(2, "0")}.${String(d).padStart(2, "0")}`;
       const diff = Math.abs(Math.round((today - new Date(date)) / 86400000));
       li.textContent = `${name}：${rocDate}(${diff}天前)`;
       li.className = diff <= 30 ? "schedule-green" : "schedule-red";
