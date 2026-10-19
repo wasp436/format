@@ -458,6 +458,22 @@ input[type="checkbox"]:focus-visible {
   flex-wrap: wrap;
 }
 
+.export-options {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-size: 13.5px;
+  color: var(--steel);
+}
+.export-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
 .copy-btn {
   padding: 10px 14px;
   background: var(--panel);

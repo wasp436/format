@@ -4,14 +4,70 @@ function addCJKSpacing(str) {
     .replace(/([A-Za-z0-9])([一-龥])/g, "$1 $2");
 }
 
+// ---- 匯出選項（全域共用，存在 localStorage）----
+const EXPORT_OPTS_KEY = "export-options";
+const exportOpts = { skipEmpty: true, numbering: true };
+try {
+  Object.assign(
+    exportOpts,
+    JSON.parse(localStorage.getItem(EXPORT_OPTS_KEY) || "{}"),
+  );
+} catch {}
+
+function saveExportOpts() {
+  try {
+    localStorage.setItem(EXPORT_OPTS_KEY, JSON.stringify(exportOpts));
+  } catch {}
+}
+
+// 有文字欄位或勾選框，但文字全部空白、且沒有勾選任何選項的項目視為「未填」
+function isLiEmpty(li) {
+  if (li.querySelector(".date-picker-trigger")) return false;
+  const inputs = li.querySelectorAll('input[type="text"], input[type="checkbox"]');
+  if (!inputs.length) return false;
+  return Array.from(inputs).every((el) =>
+    el.type === "checkbox" ? !el.checked : !el.value.trim(),
+  );
+}
+
+function getExportItems(formEl) {
+  const items = Array.from(formEl.querySelectorAll(".form-list > li"));
+  return exportOpts.skipEmpty ? items.filter((li) => !isLiEmpty(li)) : items;
+}
+
+function renderExportOptions() {
+  document.querySelectorAll(".export-bar").forEach((bar) => {
+    const row = document.createElement("div");
+    row.className = "export-options";
+    row.innerHTML = `
+      <label><input type="checkbox" data-opt="skipEmpty" />略過未填項目</label>
+      <label><input type="checkbox" data-opt="numbering" />輸出項目編號</label>`;
+    bar.prepend(row);
+  });
+  syncExportOptions();
+  document.addEventListener("change", (e) => {
+    const opt = e.target.dataset?.opt;
+    if (!opt) return;
+    exportOpts[opt] = e.target.checked;
+    saveExportOpts();
+    syncExportOptions();
+  });
+}
+
+function syncExportOptions() {
+  document.querySelectorAll(".export-options input[data-opt]").forEach((cb) => {
+    cb.checked = !!exportOpts[cb.dataset.opt];
+  });
+}
+
 function copyText(formId, title) {
   const formEl = document.getElementById(formId);
   const formTitle =
     formEl.querySelector(".form-title")?.textContent?.trim() || title;
   const lines = [formTitle, ""];
 
-  formEl.querySelectorAll(".form-list li").forEach((li, idx) => {
-    let line = idx + 1 + ". ";
+  getExportItems(formEl).forEach((li, idx) => {
+    let line = exportOpts.numbering ? idx + 1 + ". " : "";
 
     li.childNodes.forEach((node) => {
       if (node.nodeType !== Node.ELEMENT_NODE) return;
@@ -139,7 +195,7 @@ function generateFormImage(btn) {
   const panel = btn.closest(".form-panel");
   const formCard = panel.querySelector(".form-card");
   const title = formCard.querySelector(".form-title").textContent.trim();
-  const items = formCard.querySelectorAll(".form-list > li");
+  const items = getExportItems(formCard);
 
   const scale = 3;
   const cssWidth = 380;
@@ -152,7 +208,7 @@ function generateFormImage(btn) {
   const titleFontSize = 18;
   const topMargin = 40;
 
-  const contentX = marginX + indentWidth;
+  const contentX = marginX + (exportOpts.numbering ? indentWidth : 0);
   const contentWidth = cssWidth - contentX - marginRight;
 
   const meas = document.createElement("canvas");
@@ -228,7 +284,7 @@ function generateFormImage(btn) {
   renderedItems.forEach((item, idx) => {
     ctx.font = fontStr(false, false);
     ctx.fillStyle = FORM_BLACK;
-    ctx.fillText(idx + 1 + ".", marginX, y);
+    if (exportOpts.numbering) ctx.fillText(idx + 1 + ".", marginX, y);
     item.lines.forEach((line) => {
       let x = contentX;
       line.forEach((tok) => {
@@ -441,6 +497,13 @@ function fillLiFromLine(li, line) {
   }
 }
 
+// 項目的辨識文字：第一個標籤，沒有標籤時用第一個勾選項目的文字
+function liSignature(li) {
+  const label = li.querySelector(":scope > .item-label");
+  if (label) return label.textContent;
+  return li.querySelector(".cb-group label")?.textContent || "";
+}
+
 function fillFormFromText(text) {
   const activePanel = document.querySelector(".form-panel.active");
   if (!activePanel) return;
@@ -448,12 +511,23 @@ function fillFormFromText(text) {
   const lines = text
     .trim()
     .split("\n")
-    .filter((l) => /^\d+\./.test(l));
-  const listItems = formCard.querySelectorAll(".form-list li");
+    .map((l) => l.trim())
+    .filter(Boolean);
+  const listItems = Array.from(formCard.querySelectorAll(".form-list > li"));
 
-  lines.forEach((line, idx) => {
-    if (idx >= listItems.length) return;
-    fillLiFromLine(listItems[idx], line);
+  // 依每行開頭的標籤文字對應項目（文字可能已略過空白項目、或沒有編號）
+  let next = 0;
+  lines.forEach((line) => {
+    const body = line.replace(/^\d+\.\s*/, "").replace(/^[☑☐]/, "");
+    for (let i = next; i < listItems.length; i++) {
+      const sig = liSignature(listItems[i]);
+      const hit = sig && looseIndexOf(body, sig);
+      if (hit && hit.start === 0) {
+        fillLiFromLine(listItems[i], line);
+        next = i + 1;
+        return;
+      }
+    }
   });
 
   saveFormState(formCard.id);
@@ -712,6 +786,7 @@ function bindEvents() {
 }
 
 bindEvents();
+renderExportOptions();
 
 const _schedule = [
   { name: "終端箱拆除", date: "2026-06-03" },
